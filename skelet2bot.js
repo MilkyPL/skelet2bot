@@ -1,7 +1,21 @@
-const Telegraf = require('telegraf')
-const { reply } = Telegraf
+'use strict';
 
-const bot = new Telegraf(process.env.BOT_TOKEN)
-bot.command('/start', (ctx) => ctx.reply('fuck off'))
-bot.hears('raphy', (ctx) => ctx.reply('what a fag'))
-bot.startPolling()
+const Telegraf = require('telegraf');
+
+const fs = require('fs');
+
+const config = require('./config');
+
+const app = new Telegraf(config.telegram.token);
+
+app.telegram.getMe().then(bot =>
+	app.options.username = bot.username);
+
+fs.readdirSync('commands')
+	.map(x => ({
+		file: './commands/' + x,
+		name: x.split('.').slice(0, -1).join('.')
+	})).forEach(command =>
+		app.command(command.name, require(command.file)));
+
+app.startPolling();
