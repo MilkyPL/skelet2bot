@@ -2,8 +2,8 @@ var botgram = require("botgram");
 var bot = botgram(process.argv[2]);
 var bittrex = require('node.bittrex.api');
 bittrex.options({ //this key can only view info so fuck off
-	'apikey' : b5704d05ee1b4e1e83ec5a835e4ff1a5,
-	'apisecret' : 4fef149067494c3fa808d1074777af8d,
+	'apikey' : "b5704d05ee1b4e1e83ec5a835e4ff1a5",
+	'apisecret' : "4fef149067494c3fa808d1074777af8d",
 });
 
 var feature = "This feature is either under construction or I'm too retarded to implement it";
