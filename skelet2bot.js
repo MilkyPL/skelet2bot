@@ -11,9 +11,9 @@ var fag1 = "HAHA yeah what a FAG";
 
 bot.text(function (msg, reply, next) {
 	var text = msg.text.toLowerCase();
-	if (text.indexOf("linux") != -1 && text.indexOf("gnu") == -1)
+	if (text.includes("linux") && !text.includes("gnu"))
 		reply.reply(msg).text(rant);
-	if (text.indexOf("raphy") != -1 && text.indexOf("faggot") == -1)
+	if (text.includes("raphy") && !text.includes("faggot"))
 		reply.reply(msg).text(fag);
 });
 
