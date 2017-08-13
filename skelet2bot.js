@@ -7,13 +7,21 @@ var rant = "When you say Linux, you probably mean the GNU operating " +
 var fag = "When you say Raphy, you probably mean the faggot " +
 ", running Raphy as the kernel. You should therefore say " +
 "faggot/Raphy or faggot+Raphy.";
+var fag1 = "HAHA yeah what a FAG";
 
 bot.text(function (msg, reply, next) {
-  var text = msg.text.toLowerCase();
-  if (text.indexOf("raphy") != -1 && text.indexOf("faggot") == -1)
-    reply.reply(msg).text(fag);
+	var text = msg.text.toLowerCase();
+	if (text.indexOf("raphy") != -1 && text.indexOf("faggot") == -1 && text.indexOf("linux") != -1 && text.indexOf("gnu") == -1) {
+		reply.reply(msg).text(fag);
+		reply.reply(msg).text(rant);
+	} else if (text.indexOf("linux") != -1 && text.indexOf("gnu") == -1) {
+		reply.reply(msg).text(rant);
+	} else if (text.indexOf("raphy") != -1 && text.indexOf("faggot") == -1) {
+		reply.reply(msg).text(fag);
+	}
 });
 
 bot.command("start", function (msg, reply, next) {
-  reply.text("fuck off");
+	reply.text("fuck off");
 });
+
