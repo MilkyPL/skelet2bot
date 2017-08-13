@@ -1,5 +1,10 @@
 var botgram = require("botgram");
 var bot = botgram(process.argv[2]);
+var bittrex = require('node.bittrex.api');
+bittrex.options({
+	'apikey' : API_KEY,
+	'apisecret' : API_SECRET, 
+});
 
 var feature = "This feature is either under construction or I'm too retarded to implement it";
 var rant = "When you say Linux, you probably mean the GNU operating " +
