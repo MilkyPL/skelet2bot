@@ -23,7 +23,7 @@ bot.command("price", function (msg, reply, next) {
         .then(data => crap = data)
         .then(()=> {
             let balls = crap.find(obj => obj.symbol === coin.toUpperCase());
-            reply.text(balls.name + ': ' + balls.price_usd);
+            reply.text(balls.name + ': ' + balls.price_usd + "$");
         });
 });
 
