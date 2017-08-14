@@ -24,11 +24,11 @@ bot.command("price", function (msg, reply, next) {
         .then(()=> {
             let balls = crap.find(obj => obj.symbol === coin.toUpperCase());
             if(balls == undefined)
-                reply.text("give me a valid symbol nigger");
+                reply.text("give me a valid symbol retard");
             reply.text(balls.name + ": " + balls.price_usd + "$");
         });
 });
 
-bot.command("weather", function (msg, reply, next) {
+bot.command("weather", function (msg, reply, next) { //api.openweathermap.org/data/2.5/weather?q={city name},{country code} to be added
     reply.text(feature);
 });
