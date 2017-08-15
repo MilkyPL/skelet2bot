@@ -3,6 +3,14 @@ const { json } = require("req");
 const bot = botgram(process.argv[2]);
 const rants = require("./rants.json");
 const feature = "This feature is either under construction or i'm too retarded to implement it";
+const cow = `<pre>
+         (__)
+         (oo)
+   /------\\/
+  / |    ||
+ *  /\\---/\\
+    ~~   ~~
+...."Have you mooed today?"...</pre>`;
 
 bot.text(function (msg, reply, next) {
     const text = msg.text.toLowerCase();
@@ -17,10 +25,14 @@ bot.text(function (msg, reply, next) {
 });
 
 bot.command("start", function (msg, reply, next) {
+    if(msg.args().includes("moo"))
+        reply.text(cow, 'HTML');
     reply.text("fuck off");
 });
 
 bot.command("price", function (msg, reply, next) {
+    if(msg.args().includes("moo"))
+        reply.text(cow, 'HTML');
     const coin = msg.args();
     let crap;
     json("https://api.coinmarketcap.com/v1/ticker/")
@@ -34,6 +46,8 @@ bot.command("price", function (msg, reply, next) {
 });
 
 bot.command("weather", function (msg, reply, next) {
+    if(msg.args().includes("moo"))
+        reply.text(cow, 'HTML');
     const K = 273.15;
     const city = msg.args();
     let link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
@@ -85,10 +99,12 @@ bot.command("weather", function (msg, reply, next) {
  Humidity: ${Math.floor(data.main.humidity)}%
  Air pressure: ${Math.floor(data.main.pressure)} hPa
 `);
-});
+        });
 });
 
 bot.command("skelet", function (msg, reply, next) {
+    if(msg.args().includes("moo"))
+        reply.text(cow, 'HTML');
     let skelets = "";
     for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
         skelets += Math.random() < 0.5 ? '💀' : '☠';
