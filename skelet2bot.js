@@ -6,10 +6,12 @@ const feature = "This feature is either under construction or i'm too retarded t
 
 bot.text(function (msg, reply, next) {
     const text = msg.text.toLowerCase();
-    if (text.includes("linux") && !text.includes("gnu"))
+    if(text.includes("linux") && !text.includes("gnu"))
 		    reply.reply(msg).text(rants.linux[Math.floor(Math.random()*rants.linux.length)]);
-    if (text.includes("raphy") && !text.includes("faggot"))
+    if(text.includes("raphy") && !text.includes("faggot"))
 		    reply.reply(msg).text(rants.raphy[Math.floor(Math.random()*rants.raphy.length)]);
+    if(text.includes("fighting games"))
+        reply.reply(msg).text("fuck off with your gay fighting games nigger");
 });
 
 bot.command("start", function (msg, reply, next) {
@@ -31,4 +33,10 @@ bot.command("price", function (msg, reply, next) {
 
 bot.command("weather", function (msg, reply, next) { //api.openweathermap.org/data/2.5/weather?q={city name},{country code} to be added
     reply.text(feature);
+  /*const city = msg.args();
+    let ass;
+    json("api.openweathermap.org/data/2.5/weather?q=" + city)
+        .then(data => ass = data)
+        .then(()=> {
+            */
 });
