@@ -48,28 +48,36 @@ bot.command("weather", function (msg, reply, next) {
             case "01n":
                 icon = "🌕";
                 break;
-            case"02d" || "02n":
+            case "02d":
+            case "02n":
                 icon = "🌤";
                 break;
-            case"03d" || "03n":
+            case "03d":
+            case "03n":
                 icon = "⛅";
                 break;
-            case"04d" || "04n":
+            case "04d":
+            case "04n":
                 icon = "☁";
                 break;
-            case"09d" || "09n":
+            case "09d":
+            case "09n":
                 icon = "🌧";
                 break;
-            case"10d" || "10n":
+            case "10d":
+            case "10n":
                 icon = "🌦";
                 break;
-            case"11d" || "11n":
+            case "11d":
+            case "11n":
                 icon = "🌩";
                 break;
-            case"13d" || "13n":
+            case "13d":
+            case "13n":
                 icon = "🌨";
                 break;
-            case"50d" || "50n":
+            case "50d":
+            case "50n":
                 icon = "🌫";
                 break;
             }
