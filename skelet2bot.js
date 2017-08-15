@@ -38,15 +38,44 @@ bot.command("weather", function (msg, reply, next) {
     const city = msg.args();
     let link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
     let ass;
+    let icon;
     json(link)
         .then(data => {
-            if (data.cod !== 200)
-                reply.text(`gay error:\n${data.cod}: ${data.message}`);
-            reply.text(`Weather in ${data.name}, ${data.sys.country}: ${Math.floor(data.main.temp - K)}°C, ${data.weather[0].description}
-Max: ${Math.floor(data.main.temp_max - K)}°C
-Min: ${Math.floor(data.main.temp_min - K)}°C
-Humidity: ${Math.floor(data.main.humidity)}%
-Air pressure: ${Math.floor(data.main.pressure)} hPa
+            switch(data.weather[0].icon) {
+            case "01d":
+                icon = "☀";
+                break;
+            case "01n":
+                icon = "🌕";
+                break;
+            case"02d" || "02n":
+                icon = "🌤";
+                break;
+            case"03d" || "03n":
+                icon = "⛅";
+                break;
+            case"04d" || "04n":
+                icon = "☁";
+                break;
+            case"09d" || "09n":
+                icon = "🌧";
+                break;
+            case"10d" || "10n":
+                icon = "🌦";
+                break;
+            case"11d" || "11n":
+                icon = "🌩";
+                break;
+            case"13d" || "13n":
+                icon = "🌨";
+                break;
+            case"50d" || "50n":
+                icon = "🌫";
+                break;
+            }
+            reply.text(`Weather in ${data.name}, ${data.sys.country}: ${Math.floor(data.main.temp - K)}°C, ${data.weather[0].description} ` + icon + `
+ Humidity: ${Math.floor(data.main.humidity)}%
+ Air pressure: ${Math.floor(data.main.pressure)} hPa
 `);
 });
 });
