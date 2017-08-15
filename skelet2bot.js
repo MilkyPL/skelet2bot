@@ -79,3 +79,10 @@ bot.command("weather", function (msg, reply, next) {
 `);
 });
 });
+
+bot.command("skelet", function (msg, reply, next) {
+    let skelets = "";
+    for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
+        skelets += Math.random() < 0.5 ? '💀' : '☠';
+    reply.text(skelets);
+});
