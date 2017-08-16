@@ -143,3 +143,7 @@ bot.command("cowsay", function (msg, reply, next) {
 bot.command("moo", function (msg, reply, next) {
     reply.text(cow)
 });
+
+bot.command(function (msg, reply, next) {
+    reply.text("invalid command dumbass");
+  });
