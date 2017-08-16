@@ -13,7 +13,7 @@ const cow = `<pre>
  *  /\\---/\\
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
-
+/*
 bot.text(function (msg, reply, next) {
     const text = msg.text.toLowerCase();
     if(text.includes("linux") && !text.includes("gnu"))
@@ -26,8 +26,7 @@ bot.text(function (msg, reply, next) {
         reply.reply(msg).text("fuck off faggot");
     if(text == undefined)
         reply.text("unknown error");
-});
-
+*/
 bot.command("start", function (msg, reply, next) {
     if(msg.args().includes("moo"))
         reply.text(cow, 'HTML');
