@@ -1,6 +1,7 @@
 const botgram = require("botgram");
 const { json } = require("req");
 const cron = require('node-cron');
+const cowsay = require("cowsay");
 const bot = botgram(process.argv[2]);
 const rants = require("./rants.json");
 const feature = "This feature is either under construction or i'm too retarded to implement it";
@@ -125,4 +126,16 @@ bot.all(function (msg, reply, next) {
         reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
         reply.text("testing cron");
     });
-})
+});
+
+bot.command("cowsay", function (msg, reply, next) {
+    const moo = msg.args();
+    if(moo == undefined || moo == "moo")
+        reply.text(cowsay.say({
+            text : "Have you mooed today?"
+        }));
+    else
+        reply.text(cowsay.say({
+            text : moo
+        }));
+});
