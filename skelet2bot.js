@@ -117,13 +117,13 @@ bot.command("skelet", function (msg, reply, next) {
 bot.command("cowsay", function (msg, reply, next) {
     const moo = msg.args();
     if(moo == undefined || moo == "moo")
-        reply.text("<pre>" + cowsay.say({
+        reply.text("```" + cowsay.say({
             text : "Have you mooed today?"
-        }) + "</pre>", 'HTML');
+        }) + "```", 'Markdown');
     else
-        reply.text("<pre>" + cowsay.say({
+        reply.text("```" + cowsay.say({
             text : moo
-        }) + "</pre>", 'HTML');
+        }) + "```", 'Markdown');
 });
 
 bot.command("papiez", function (msg, reply, next) {
