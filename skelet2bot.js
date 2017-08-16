@@ -133,19 +133,17 @@ bot.command("papiez", function (msg, reply, next) {
     reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
 });
 
-bot.all(function (msg, reply, next) {
-    cron.schedule("37 21 * * *", function() {
-        reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
-        reply.text("testing cron");
-    });
-});
-
-
-
 bot.command("moo", function (msg, reply, next) {
     reply.text(cow)
 });
 
 bot.command(function (msg, reply, next) {
     reply.text("invalid command dumbass");
-  });
+});
+
+bot.all(function (msg, reply, next) {
+    cron.schedule("37 21 * * *", function() {
+        reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
+        reply.text("testing cron");
+    });
+});
