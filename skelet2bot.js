@@ -115,6 +115,18 @@ bot.command("skelet", function (msg, reply, next) {
     reply.text(skelets);
 });
 
+bot.command("cowsay", function (msg, reply, next) {
+    const moo = msg.args();
+    if(moo == undefined || moo == "moo")
+        reply.text(cowsay.say({
+            text : "Have you mooed today?"
+        }));
+    else
+        reply.text(cowsay.say({
+            text : moo
+        }));
+});
+
 bot.command("papiez", function (msg, reply, next) {
     if(msg.args().includes("moo"))
         reply.text(cow, 'HTML');
@@ -128,17 +140,7 @@ bot.all(function (msg, reply, next) {
     });
 });
 
-bot.command("cowsay", function (msg, reply, next) {
-    const moo = msg.args();
-    if(moo == undefined || moo == "moo")
-        reply.text(cowsay.say({
-            text : "Have you mooed today?"
-        }));
-    else
-        reply.text(cowsay.say({
-            text : moo
-        }));
-});
+
 
 bot.command("moo", function (msg, reply, next) {
     reply.text(cow)
