@@ -15,7 +15,7 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
-bot.on('command', (ctx) => ctx.reply("framework migration in progress, fuck off"));
+bot.on('bot_command', (ctx) => ctx.reply("framework migration in progress, fuck off"));
 /*
 bot.text(function (msg, reply, next) {
     const text = msg.text.toLowerCase();
