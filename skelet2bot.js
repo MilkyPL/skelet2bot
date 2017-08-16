@@ -141,5 +141,5 @@ bot.command("cowsay", function (msg, reply, next) {
 });
 
 bot.command("moo", function (msg, reply, next) {
-    reply.text(moo)
+    reply.text(cow)
 });
