@@ -1,0 +1,26 @@
+{
+  "name": "skelet2bot",
+  "version": "1.0.0",
+  "description": "assballs",
+  "main": "skelet2bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MilkyPL/skelet2bot.git"
+  },
+  "author": "MilkyPL",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/MilkyPL/skelet2bot/issues"
+  },
+  "homepage": "https://github.com/MilkyPL/skelet2bot#readme",
+  "dependencies": {
+    "botgram": "^2.0.1",
+    "cowsay": "^1.1.9",
+    "node-cron": "^1.2.1",
+    "req": "github:trgwii/req"
+  },
+  "devDependencies": {}
+}
