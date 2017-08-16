@@ -1,8 +1,9 @@
-const botgram = require("botgram");
+const Telegraf = require('telegraf')
+const { reply } = Telegraf
 const { json } = require("req");
 const cron = require('node-cron');
 const cowsay = require("cowsay");
-const bot = botgram(process.argv[2]);
+const bot = new Telegraf(process.argv[2])
 const rants = require("./rants.json");
 const feature = "This feature is either under construction or i'm too retarded to implement it";
 const cow = `<pre>
@@ -14,6 +15,8 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
+bot.on("command", (ctx) => ctx.reply("framework migration in progress, fuck off"));
+/*
 bot.text(function (msg, reply, next) {
     const text = msg.text.toLowerCase();
     if(text.includes("linux") && !text.includes("gnu"))
@@ -147,3 +150,5 @@ bot.command("moo", function (msg, reply, next) {
 bot.command(function (msg, reply, next) {
     reply.text("invalid command dumbass");
   });
+*/
+bot.startPolling();
