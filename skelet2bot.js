@@ -134,7 +134,7 @@ bot.command("papiez", function (msg, reply, next) {
 });
 
 bot.command("moo", function (msg, reply, next) {
-    reply.text(cow)
+    reply.text(cow, 'HTML')
 });
 
 bot.command(function (msg, reply, next) {
@@ -143,7 +143,6 @@ bot.command(function (msg, reply, next) {
 /*
 bot.all(function (msg, reply, next) {
     cron.schedule("37 21 * * *", function() {
-        reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
         reply.text("testing cron");
     });
 });
