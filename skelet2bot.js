@@ -1,4 +1,4 @@
-const botgram = require("botgram")
+const botgram = require("botgram");
 const { json } = require("req");
 const cron = require('node-cron');
 const cowsay = require("cowsay");
