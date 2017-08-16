@@ -139,3 +139,7 @@ bot.command("cowsay", function (msg, reply, next) {
             text : moo
         }));
 });
+
+bot.command("moo", function (msg, reply, next) {
+    reply.text(moo)
+});
