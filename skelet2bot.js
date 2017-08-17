@@ -116,7 +116,7 @@ bot.command("skelet", function (msg, reply, next) {
 
 bot.command("cowsay", function (msg, reply, next) {
     const moo = msg.args();
-    if(moo == undefined || moo == "moo")
+    if(moo == undefined || moo == "moo" || moo == "")
         reply.text("```" + cowsay.say({
             text : "Have you mooed today?"
         }) + "```", 'Markdown');
@@ -133,7 +133,11 @@ bot.command("papiez", function (msg, reply, next) {
 });
 
 bot.command("moo", function (msg, reply, next) {
-    reply.text(cow, 'HTML')
+    reply.text(cow, 'HTML');
+});
+
+bot.command("rogue", function (msg, reply, next) {
+    reply.text(feature);
 });
 
 bot.command(function (msg, reply, next) {
