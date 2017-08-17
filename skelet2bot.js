@@ -109,16 +109,4 @@ bot.command("moo", ({ reply }) =>
 bot.command("rogue", ({ reply }) =>
 	reply(feature));
 
-bot.command("inba", ({ message, reply }) => {
-	if (message.from.id === 353196474) {
-		cron.schedule("37 21 * * *", function() {
-			let { replyWithVideo } = new Telegraf(process.argv[2]);
-			replyWithVideo("https://vignette4.wikia.nocookie.net" +
-			"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
-			"?cb=20130929184445");
-		});
-	} else reply("unauthorized, fuck off");
-});
-
-
 bot.startPolling();
