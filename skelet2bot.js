@@ -37,10 +37,8 @@ bot.command("price", function (msg, reply, next) {
     if(msg.args().includes("moo"))
         reply.text(cow, 'HTML');
     const coin = msg.args();
-    let crap;
     json("https://api.coinmarketcap.com/v1/ticker/")
-        .then(data => crap = data)
-        .then(()=> {
+        .then(crap => {
             let balls = crap.find(obj => obj.symbol === coin.toUpperCase());
             if(balls == undefined)
                 reply.text("give me a valid symbol retard");
