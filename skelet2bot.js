@@ -13,7 +13,7 @@ const cow = `<pre>
  *  /\\---/\\
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
-
+/*
 bot.text(function (msg, reply, next) {
     const text = msg.text.toLowerCase();
     if(text.includes("linux") && !text.includes("gnu"))
@@ -26,8 +26,7 @@ bot.text(function (msg, reply, next) {
         reply.reply(msg).text("fuck off faggot");
     if(text == undefined)
         reply.text("unknown error");
-});
-
+*/
 bot.command("start", function (msg, reply, next) {
     if(msg.args().includes("moo"))
         reply.text(cow, 'HTML');
@@ -117,14 +116,14 @@ bot.command("skelet", function (msg, reply, next) {
 
 bot.command("cowsay", function (msg, reply, next) {
     const moo = msg.args();
-    if(moo == undefined || moo == "moo")
-        reply.text(cowsay.say({
+    if(moo == undefined || moo == "moo" || moo == "")
+        reply.text("```" + cowsay.say({
             text : "Have you mooed today?"
-        }));
+        }) + "```", 'Markdown');
     else
-        reply.text(cowsay.say({
+        reply.text("```" + cowsay.say({
             text : moo
-        }));
+        }) + "```", 'Markdown');
 });
 
 bot.command("papiez", function (msg, reply, next) {
@@ -134,7 +133,11 @@ bot.command("papiez", function (msg, reply, next) {
 });
 
 bot.command("moo", function (msg, reply, next) {
-    reply.text(cow, 'HTML')
+    reply.text(cow, 'HTML');
+});
+
+bot.command("rogue", function (msg, reply, next) {
+    reply.text(feature);
 });
 
 bot.command(function (msg, reply, next) {
