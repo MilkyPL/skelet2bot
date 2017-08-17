@@ -47,9 +47,9 @@ bot.command("price", ({ message, reply }) =>
 		.then(crap => {
 			const balls = crap.find(obj =>
 				obj.symbol === String(args(message.text)).toUpperCase());
-			if(balls == undefined)
-				reply("give me a valid symbol retard");
-			else reply(balls.name + ": " + balls.price_usd + "$");
+			balls
+				? reply(balls.name + ": " + balls.price_usd + "$")
+				: reply("give me a valid symbol retard");
 		}));
 
 bot.command("weather", ({ message, reply }) => {
