@@ -1,9 +1,12 @@
+"use strict";
+
 const botgram = require("botgram");
 const { json } = require("req");
-// const cron = require("node-cron");
 const cowsay = require("cowsay");
-const bot = botgram(process.argv[2]);
+// const cron = require("node-cron");
 // const rants = require("./rants.json");
+
+const bot = botgram(process.argv[2]);
 const feature = "This feature is either under construction or i'm too retarded to implement it";
 const cow = `<pre>
          (__)
