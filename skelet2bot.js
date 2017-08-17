@@ -3,7 +3,7 @@
 const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-// const cron = require("node-cron");
+const cron = require("node-cron");
 // const rants = require("./rants.json");
 
 const args = text => text.split(" ").slice(1);
@@ -110,10 +110,16 @@ bot.command("rogue", ({ reply }) =>
 	reply(feature));
 
 /*
-bot.all(({ message, reply }) => {
-	cron.schedule("37 21 * * *", function() {
-		reply("testing cron");
-	});
+bot.command("inba", ({ message, reply }) => {
+	if (id(message) !== "353196474") {
+		reply('Not authorized');
+	} else {
+		cron.schedule("37 21 * * *", function() {
+			replyWithVideo("https://vignette4.wikia.nocookie.net" +
+			"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
+			"?cb=20130929184445");
+		})
+	}
 });
 */
 
