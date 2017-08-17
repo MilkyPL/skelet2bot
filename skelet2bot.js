@@ -1,12 +1,14 @@
 "use strict";
 
-const botgram = require("botgram");
+const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
 // const cron = require("node-cron");
 // const rants = require("./rants.json");
 
-const bot = botgram(process.argv[2]);
+const args = text => text.split(" ").slice(1);
+
+const bot = new Telegraf(process.argv[2]);
 const feature = "This feature is either under construction or i'm too retarded to implement it";
 const cow = `<pre>
          (__)
@@ -17,7 +19,7 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 /*
-bot.text(function (msg, reply) {
+bot.text(({ message, reply }) => {
 	const text = msg.text.toLowerCase();
 	if(text.includes("linux") && !text.includes("gnu"))
 			reply.reply(msg).text(rants.linux[Math.floor(Math.random()*rants.linux.length)]);
@@ -28,32 +30,32 @@ bot.text(function (msg, reply) {
 	if(text.includes("😂"))
 		reply.reply(msg).text("fuck off faggot");
 	if(text == undefined)
-		reply.text("unknown error");
+		reply("unknown error");
 */
-bot.command("start", function (msg, reply) {
-	if(msg.args().includes("moo"))
-		reply.text(cow, "HTML");
-	reply.text("fuck off");
+bot.command("start", ({ message, reply }) => {
+	if(args(message.text).includes("moo"))
+		reply(cow, "HTML");
+	reply("fuck off");
 });
 
-bot.command("price", function (msg, reply) {
-	if(msg.args().includes("moo"))
-		reply.text(cow, "HTML");
-	const coin = msg.args();
+bot.command("price", ({ message, reply }) => {
+	if(args(message.text).includes("moo"))
+		reply(cow, "HTML");
+	const coin = String(args(message.text));
 	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => {
 			let balls = crap.find(obj => obj.symbol === coin.toUpperCase());
 			if(balls == undefined)
-				reply.text("give me a valid symbol retard");
-			reply.text(balls.name + ": " + balls.price_usd + "$");
+				reply("give me a valid symbol retard");
+			reply(balls.name + ": " + balls.price_usd + "$");
 		});
 });
 
-bot.command("weather", function (msg, reply) {
-	if(msg.args().includes("moo"))
-		reply.text(cow, "HTML");
+bot.command("weather", ({ message, reply }) => {
+	if(args(message.text).includes("moo"))
+		reply(cow, "HTML");
 	const K = 273.15;
-	const city = msg.args();
+	const city = args(message.text);
 	let link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
 	let icon;
 	json(link)
@@ -98,55 +100,54 @@ bot.command("weather", function (msg, reply) {
 				icon = "🌫";
 				break;
 			}
-			reply.text(`Weather in ${data.name}, ${data.sys.country}: ${Math.floor(data.main.temp - K)}°C, ${data.weather[0].description} ` + icon + `
+			reply(`Weather in ${data.name}, ${data.sys.country}: ${Math.floor(data.main.temp - K)}°C, ${data.weather[0].description} ` + icon + `
  Humidity: ${Math.floor(data.main.humidity)}%
  Air pressure: ${Math.floor(data.main.pressure)} hPa
 `);
 		});
 });
 
-bot.command("skelet", function (msg, reply) {
-	if(msg.args().includes("moo"))
-		reply.text(cow, "HTML");
+bot.command("skelet", ({ message, reply }) => {
+	if(args(message.text).includes("moo"))
+		reply(cow, "HTML");
 	let skelets = "";
 	for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
 		skelets += Math.random() < 0.5 ? "💀" : "☠";
-	reply.text(skelets);
+	reply(skelets);
 });
 
-bot.command("cowsay", function (msg, reply) {
-	const moo = msg.args();
+bot.command("cowsay", ({ message, reply }) => {
+	const moo = args(message.text);
 	if(moo == undefined || moo == "moo" || moo == "")
-		reply.text("```" + cowsay.say({
+		reply("```" + cowsay.say({
 			text : "Have you mooed today?"
 		}) + "```", "Markdown");
 	else
-		reply.text("```" + cowsay.say({
+		reply("```" + cowsay.say({
 			text : moo
 		}) + "```", "Markdown");
 });
 
-bot.command("papiez", function (msg, reply) {
-	if(msg.args().includes("moo"))
-		reply.text(cow, "HTML");
-	reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
+bot.command("papiez", ({ message, reply, replyWithVideo }) => {
+	if(args(message.text).includes("moo"))
+		reply(cow, "HTML");
+	replyWithVideo("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
 });
 
-bot.command("moo", function (msg, reply) {
-	reply.text(cow, "HTML");
+bot.command("moo", ({ reply }) => {
+	reply(cow, "HTML");
 });
 
-bot.command("rogue", function (msg, reply) {
-	reply.text(feature);
+bot.command("rogue", ({ reply }) => {
+	reply(feature);
 });
 
-bot.command(function (msg, reply) {
-	reply.text("invalid command dumbass");
-});
 /*
-bot.all(function (msg, reply) {
+bot.all(({ message, reply }) => {
 	cron.schedule("37 21 * * *", function() {
-		reply.text("testing cron");
+		reply("testing cron");
 	});
 });
 */
+
+bot.startPolling();
