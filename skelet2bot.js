@@ -1,9 +1,9 @@
 const botgram = require("botgram");
 const { json } = require("req");
-const cron = require('node-cron');
+// const cron = require("node-cron");
 const cowsay = require("cowsay");
 const bot = botgram(process.argv[2]);
-const rants = require("./rants.json");
+// const rants = require("./rants.json");
 const feature = "This feature is either under construction or i'm too retarded to implement it";
 const cow = `<pre>
 		 (__)
@@ -14,7 +14,7 @@ const cow = `<pre>
 	~~   ~~
 ...."Have you mooed today?"...</pre>`;
 /*
-bot.text(function (msg, reply, next) {
+bot.text(function (msg, reply) {
 	const text = msg.text.toLowerCase();
 	if(text.includes("linux") && !text.includes("gnu"))
 			reply.reply(msg).text(rants.linux[Math.floor(Math.random()*rants.linux.length)]);
@@ -27,13 +27,13 @@ bot.text(function (msg, reply, next) {
 	if(text == undefined)
 		reply.text("unknown error");
 */
-bot.command("start", function (msg, reply, next) {
+bot.command("start", function (msg, reply) {
 	if(msg.args().includes("moo"))
 		reply.text(cow, "HTML");
 	reply.text("fuck off");
 });
 
-bot.command("price", function (msg, reply, next) {
+bot.command("price", function (msg, reply) {
 	if(msg.args().includes("moo"))
 		reply.text(cow, "HTML");
 	const coin = msg.args();
@@ -46,13 +46,12 @@ bot.command("price", function (msg, reply, next) {
 		});
 });
 
-bot.command("weather", function (msg, reply, next) {
+bot.command("weather", function (msg, reply) {
 	if(msg.args().includes("moo"))
 		reply.text(cow, "HTML");
 	const K = 273.15;
 	const city = msg.args();
 	let link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
-	let ass;
 	let icon;
 	json(link)
 		.then(data => {
@@ -103,16 +102,16 @@ bot.command("weather", function (msg, reply, next) {
 		});
 });
 
-bot.command("skelet", function (msg, reply, next) {
+bot.command("skelet", function (msg, reply) {
 	if(msg.args().includes("moo"))
 		reply.text(cow, "HTML");
 	let skelets = "";
 	for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
-		skelets += Math.random() < 0.5 ? '💀' : '☠';
+		skelets += Math.random() < 0.5 ? "💀" : "☠";
 	reply.text(skelets);
 });
 
-bot.command("cowsay", function (msg, reply, next) {
+bot.command("cowsay", function (msg, reply) {
 	const moo = msg.args();
 	if(moo == undefined || moo == "moo" || moo == "")
 		reply.text("```" + cowsay.say({
@@ -124,25 +123,25 @@ bot.command("cowsay", function (msg, reply, next) {
 		}) + "```", "Markdown");
 });
 
-bot.command("papiez", function (msg, reply, next) {
+bot.command("papiez", function (msg, reply) {
 	if(msg.args().includes("moo"))
 		reply.text(cow, "HTML");
 	reply.video("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
 });
 
-bot.command("moo", function (msg, reply, next) {
+bot.command("moo", function (msg, reply) {
 	reply.text(cow, "HTML");
 });
 
-bot.command("rogue", function (msg, reply, next) {
+bot.command("rogue", function (msg, reply) {
 	reply.text(feature);
 });
 
-bot.command(function (msg, reply, next) {
+bot.command(function (msg, reply) {
 	reply.text("invalid command dumbass");
 });
 /*
-bot.all(function (msg, reply, next) {
+bot.all(function (msg, reply) {
 	cron.schedule("37 21 * * *", function() {
 		reply.text("testing cron");
 	});
