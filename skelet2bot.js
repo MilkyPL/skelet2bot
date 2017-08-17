@@ -34,13 +34,13 @@ bot.text(({ message, reply }) => {
 */
 bot.command("start", ({ message, reply }) => {
 	if(args(message.text).includes("moo"))
-		reply(cow, "HTML");
+		reply(cow, { parse_mode: "HTML" });
 	reply("fuck off");
 });
 
 bot.command("price", ({ message, reply }) => {
 	if(args(message.text).includes("moo"))
-		reply(cow, "HTML");
+		reply(cow, { parse_mode: "HTML" });
 	const coin = String(args(message.text));
 	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => {
@@ -53,7 +53,7 @@ bot.command("price", ({ message, reply }) => {
 
 bot.command("weather", ({ message, reply }) => {
 	if(args(message.text).includes("moo"))
-		reply(cow, "HTML");
+		reply(cow, { parse_mode: "HTML" });
 	const K = 273.15;
 	const city = args(message.text);
 	let link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
@@ -109,7 +109,7 @@ bot.command("weather", ({ message, reply }) => {
 
 bot.command("skelet", ({ message, reply }) => {
 	if(args(message.text).includes("moo"))
-		reply(cow, "HTML");
+		reply(cow, { parse_mode: "HTML" });
 	let skelets = "";
 	for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
 		skelets += Math.random() < 0.5 ? "💀" : "☠";
@@ -130,12 +130,12 @@ bot.command("cowsay", ({ message, reply }) => {
 
 bot.command("papiez", ({ message, reply, replyWithVideo }) => {
 	if(args(message.text).includes("moo"))
-		reply(cow, "HTML");
+		reply(cow, { parse_mode: "HTML" });
 	replyWithVideo("https://vignette4.wikia.nocookie.net/nonsensopedia/images/c/cf/Patron.gif/revision/latest?cb=20130929184445");
 });
 
 bot.command("moo", ({ reply }) => {
-	reply(cow, "HTML");
+	reply(cow, { parse_mode: "HTML" });
 });
 
 bot.command("rogue", ({ reply }) => {
