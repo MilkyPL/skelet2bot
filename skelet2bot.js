@@ -3,7 +3,7 @@
 const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-const cron = require("node-cron");
+// const cron = require("node-cron");
 // const rants = require("./rants.json");
 
 const args = text => text.split(" ").slice(1);
