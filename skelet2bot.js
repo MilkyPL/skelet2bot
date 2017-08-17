@@ -49,7 +49,7 @@ bot.command("price", ({ message, reply }) =>
 				obj.symbol === String(args(message.text)).toUpperCase());
 			if(balls == undefined)
 				reply("give me a valid symbol retard");
-			reply(balls.name + ": " + balls.price_usd + "$");
+			else reply(balls.name + ": " + balls.price_usd + "$");
 		}));
 
 bot.command("weather", ({ message, reply }) => {
