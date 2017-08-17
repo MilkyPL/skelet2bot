@@ -6,12 +6,12 @@ const bot = botgram(process.argv[2]);
 // const rants = require("./rants.json");
 const feature = "This feature is either under construction or i'm too retarded to implement it";
 const cow = `<pre>
-		 (__)
-		 (oo)
+         (__)
+         (oo)
    /------\\/
   / |    ||
  *  /\\---/\\
-	~~   ~~
+    ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 /*
 bot.text(function (msg, reply) {
