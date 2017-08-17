@@ -44,7 +44,7 @@ bot.command("price", ({ message, reply }) => {
 	const coin = String(args(message.text));
 	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => {
-			let balls = crap.find(obj => obj.symbol === coin.toUpperCase());
+			const balls = crap.find(obj => obj.symbol === coin.toUpperCase());
 			if(balls == undefined)
 				reply("give me a valid symbol retard");
 			reply(balls.name + ": " + balls.price_usd + "$");
@@ -56,7 +56,7 @@ bot.command("weather", ({ message, reply }) => {
 		reply(cow, { parse_mode: "HTML" });
 	const K = 273.15;
 	const city = args(message.text);
-	let link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
+	const link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=1566ed87c9944f0df94332da29ee817c`;
 	let icon;
 	json(link)
 		.then(data => {
