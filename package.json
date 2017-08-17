@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/MilkyPL/skelet2bot#readme",
   "dependencies": {
-    "botgram": "^2.0.1",
     "cowsay": "^1.1.9",
     "node-cron": "^1.2.1",
     "req": "github:trgwii/req",
