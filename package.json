@@ -20,8 +20,7 @@
     "botgram": "^2.0.1",
     "cowsay": "^1.1.9",
     "node-cron": "^1.2.1",
-    "req": "github:trgwii/req",
-    "telegraf": "^3.9.0"
+    "req": "github:trgwii/req"
   },
   "devDependencies": {}
 }

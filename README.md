@@ -1,2 +1,2 @@
-# skelly2bot
+# skelet2bot
 New skeleton bot
