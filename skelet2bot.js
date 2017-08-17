@@ -121,11 +121,11 @@ bot.command("cowsay", ({ message, reply }) => {
 	if(moo == undefined || moo == "moo" || moo == "")
 		reply("```" + cowsay.say({
 			text : "Have you mooed today?"
-		}) + "```", "Markdown");
+		}) + "```", { parse_mode: "Markdown" });
 	else
 		reply("```" + cowsay.say({
 			text : moo
-		}) + "```", "Markdown");
+		}) + "```", { parse_mode: "Markdown" });
 });
 
 bot.command("papiez", ({ message, reply, replyWithVideo }) => {
