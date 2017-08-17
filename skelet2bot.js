@@ -9,6 +9,8 @@ const cowsay = require("cowsay");
 const args = text => text.split(" ").slice(1);
 
 const bot = new Telegraf(process.argv[2]);
+bot.telegram.getMe().then(data =>
+	bot.options.username = data.username);
 
 const feature =
 	"This feature is either under construction " +
@@ -79,9 +81,9 @@ bot.command("weather", ({ message, reply }) => {
 			data.weather[0].description +
 			(icons[data.weather[0].icon] || "") + "\n" +
 			" Humidity: " + Math.floor(data.main.humidity) + "%\n" +
-			" Air pressure: " + Math.floor(data.main.pressure) + " hPa")
-		}
-	)
+			" Air pressure: " + Math.floor(data.main.pressure) + " hPa");
+	}
+	);
 });
 
 bot.command("skelet", ({ reply }) => {
