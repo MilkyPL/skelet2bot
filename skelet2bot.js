@@ -68,16 +68,20 @@ bot.command("weather", ({ message, reply }) => {
 		"13d": "🌨", "13n": "🌨",
 		"50d": "🌫", "50n": "🌫"
 	};
-	return json(link).then(data =>
-		reply(
+	return json(link).then(data => {
+		if (data.cod !== 200)
+			return reply(`Error:\n${data.cod}: ${data.message}`);
+		else reply(
 			"Weather in " +
 			data.name + ", " + 
 			data.sys.country + ": " +
 			Math.floor(data.main.temp - K) + "°C, " +
 			data.weather[0].description +
 			(icons[data.weather[0].icon] || "") + "\n" +
-			" Humidity: " + Math.floor(data.main.humidity) + "%" +
-			" Air pressure: " + Math.floor(data.main.pressure) + " hPa"));
+			" Humidity: " + Math.floor(data.main.humidity) + "%\n" +
+			" Air pressure: " + Math.floor(data.main.pressure) + " hPa")
+		}
+	)
 });
 
 bot.command("skelet", ({ reply }) => {
