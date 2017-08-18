@@ -13,8 +13,7 @@ const bot = new Telegraf(process.argv[2]);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
 
-const feature = ({ reply }) =>
-	reply("This feature is either under construction " +
+const feature = ("This feature is either under construction " +
 	"or i'm too retarded to implement it");
 
 const cow = `<pre>
