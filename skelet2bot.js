@@ -109,4 +109,7 @@ bot.command("moo", ({ reply }) =>
 bot.command("rogue", ({ reply }) =>
 	reply(feature));
 
+bot.command("forecast", ({ reply }) =>
+	reply(feature));
+
 bot.startPolling();
