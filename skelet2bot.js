@@ -7,14 +7,16 @@ const cowsay = require("cowsay");
 // const rants = require("./rants.json");
 
 const args = text => text.split(" ").slice(1);
+const argstring = text => args(text).join(" ").trim();
 
 const bot = new Telegraf(process.argv[2]);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
 
-const feature =
-	"This feature is either under construction " +
-	"or i'm too retarded to implement it";
+const feature = ({ reply }) =>
+	reply("This feature is either under construction " +
+	"or i'm too retarded to implement it");
+
 const cow = `<pre>
          (__)
          (oo)
@@ -42,23 +44,21 @@ bot.text(({ message, reply }) => {
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
 
+bot.command("moo", ({ reply }) =>
+	reply(cow, { parse_mode: "HTML" }));
+
+bot.command("rogue", feature);
+
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
-		.then(crap => {
-			const balls = crap.find(obj =>
-				obj.symbol === String(args(message.text)).toUpperCase());
-			balls
-				? reply(balls.name + ": " + balls.price_usd + "$")
-				: reply("give me a valid symbol retard");
-		}));
+		.then(crap => crap.find(obj =>
+			obj.symbol === args(message.text)[0].toUpperCase()))
+		.then(balls => balls
+			? reply(balls.name + ": " + balls.price_usd + "$")
+			: reply("give me a valid symbol retard")));
 
 bot.command("weather", ({ message, reply }) => {
 	const K = 273.15;
-	const city = args(message.text);
-	const link =
-		"http://api.openweathermap.org/data/2.5/weather?q=" +
-		encodeURIComponent(city) +
-		"&APPID=1566ed87c9944f0df94332da29ee817c";
 	const icons = {
 		"01d": "☀", "01n": "🌕",
 		"02d": "🌤", "02n": "🌤",
@@ -70,32 +70,32 @@ bot.command("weather", ({ message, reply }) => {
 		"13d": "🌨", "13n": "🌨",
 		"50d": "🌫", "50n": "🌫"
 	};
-	return json(link).then(data => {
-		if (data.cod !== 200)
-			return reply(`Error:\n${data.cod}: ${data.message}`);
-		else reply(
-			"Weather in " +
-			data.name + ", " + 
-			data.sys.country + ": " +
-			Math.floor(data.main.temp - K) + "°C, " +
-			data.weather[0].description +
-			(icons[data.weather[0].icon] || "") + "\n" +
-			" Humidity: " + Math.floor(data.main.humidity) + "%\n" +
-			" Air pressure: " + Math.floor(data.main.pressure) + " hPa");
-	}
-	);
+	return json("http://api.openweathermap.org/data/2.5/weather?q=" +
+		encodeURIComponent(argstring(message.text)) +
+		"&APPID=1566ed87c9944f0df94332da29ee817c").then(data =>
+		data.cod !== 200
+			? reply(`Error:\n${data.cod}: ${data.message}`)
+			: reply(
+				"Weather in " +
+				data.name + ", " + 
+				data.sys.country + ": " +
+				Math.floor(data.main.temp - K) + "°C, " +
+				data.weather[0].description +
+				(icons[data.weather[0].icon] || "") + "\n" +
+				" Humidity: " + Math.floor(data.main.humidity) + "%\n" +
+				" Air pressure: " + Math.floor(data.main.pressure) + " hPa"));
 });
 
 bot.command("skelet", ({ reply }) => {
 	let skelets = "";
 	for (let i = 0; i < Math.floor((Math.random() * 20) + 1 ); i++)
 		skelets += Math.random() < 0.5 ? "💀" : "☠";
-	reply(skelets);
+	return reply(skelets);
 });
 
 bot.command("cowsay", ({ message, reply }) =>
 	reply("```" + cowsay.say({
-		text : String(args(message.text)) || "Have you mooed today?"
+		text : argstring(message.text) || "Have you mooed today?"
 	}) + "```", { parse_mode: "Markdown" }));
 
 bot.command("papiez", ({ replyWithVideo }) =>
