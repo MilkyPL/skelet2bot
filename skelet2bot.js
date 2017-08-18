@@ -13,7 +13,8 @@ const bot = new Telegraf(process.argv[2]);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
 
-const feature = ("This feature is either under construction " +
+const feature = ({ reply }) =>
+	reply("This feature is either under construction " +
 	"or i'm too retarded to implement it");
 
 const cow = `<pre>
@@ -48,6 +49,8 @@ bot.command("moo", ({ reply }) =>
 
 bot.command("rogue", feature);
 
+bot.command("forecast", feature);
+
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
@@ -79,7 +82,7 @@ bot.command("weather", ({ message, reply }) => {
 				data.name + ", " + 
 				data.sys.country + ": " +
 				Math.floor(data.main.temp - K) + "°C, " +
-				data.weather[0].description +
+				data.weather[0].description + " " +
 				(icons[data.weather[0].icon] || "") + "\n" +
 				" Humidity: " + Math.floor(data.main.humidity) + "%\n" +
 				" Air pressure: " + Math.floor(data.main.pressure) + " hPa"));
@@ -101,14 +104,5 @@ bot.command("papiez", ({ replyWithVideo }) =>
 	replyWithVideo("https://vignette4.wikia.nocookie.net" +
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
 		"?cb=20130929184445"));
-
-bot.command("moo", ({ reply }) =>
-	reply(cow, { parse_mode: "HTML" }));
-
-bot.command("rogue", ({ reply }) =>
-	reply(feature));
-
-bot.command("forecast", ({ reply }) =>
-	reply(feature));
 
 bot.startPolling();
