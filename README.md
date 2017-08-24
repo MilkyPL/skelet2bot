@@ -1,2 +1,2 @@
 # skelet2bot
-New skeleton bot
+Telegram bot based on Telegraf for my personal use.
