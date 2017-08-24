@@ -6,11 +6,12 @@ const cowsay = require("cowsay");
 const cron = require("node-cron");
 // const rants = require("./rants.json");
 // const cipher = require("./cipher.json")
+const key = process.argv[2];
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
 
-const bot = new Telegraf(process.argv[2]);
+const bot = new Telegraf(key);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
 
@@ -18,7 +19,7 @@ const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
 	"or i'm too retarded to implement it");
 
-const inba = ({ replyWithVideo }) =>
+const inba = ({ replyWithVideo }) =>								// TODO: random replies, automatic cronjob start
 	cron.schedule("37 21 * * *", function() {
 		replyWithVideo("https://vignette4.wikia.nocookie.net" +
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
@@ -61,7 +62,7 @@ bot.command("rogue", feature);
 
 bot.command("forecast", feature);
 
-bot.command("inba", inba);
+bot.command("inba", inba);											// TODO: command can only be used by bot owner to switch cronjob on and off
 
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
