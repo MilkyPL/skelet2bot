@@ -3,8 +3,9 @@
 const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-// const cron = require("node-cron");
+const cron = require("node-cron");
 // const rants = require("./rants.json");
+// const cipher = require("./cipher.json")
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -16,6 +17,13 @@ bot.telegram.getMe().then(data =>
 const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
 	"or i'm too retarded to implement it");
+
+const inba = ({ replyWithVideo }) =>
+	cron.schedule("37 21 * * *", function() {
+		replyWithVideo("https://vignette4.wikia.nocookie.net" +
+		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
+		"?cb=20130929184445");
+	});
 
 const cow = `<pre>
          (__)
@@ -47,9 +55,13 @@ bot.command("start", ({ reply }) =>
 bot.command("moo", ({ reply }) =>
 	reply(cow, { parse_mode: "HTML" }));
 
+bot.command("test", feature);
+
 bot.command("rogue", feature);
 
 bot.command("forecast", feature);
+
+bot.command("inba", inba);
 
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
