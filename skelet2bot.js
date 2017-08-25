@@ -71,7 +71,7 @@ bot.command("test", feature);
 bot.command("rogue", feature);
 
 bot.command("forecast", feature);
-/* test
+
 bot.command("inba", ({ message, reply }) => {
 	if(message.from.id == 353196474) {
 		reply("inba protocol initiated");
@@ -80,7 +80,7 @@ bot.command("inba", ({ message, reply }) => {
 	else
 		reply("not authorized");
 });											// TODO: command can only be used by bot owner to switch cronjob on and off
-*/
+
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
