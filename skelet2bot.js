@@ -34,6 +34,7 @@ const cow = `<pre>
  *  /\\---/\\
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
+
 /*
 bot.text(({ message, reply }) => {
 	const text = msg.text.toLowerCase();
@@ -50,6 +51,15 @@ bot.text(({ message, reply }) => {
 	if(text == undefined)
 		reply("unknown error");
 */
+
+bot.on("text", ({ message, replyWithSticker, reply }) => {
+	const text = message.text.toLowerCase();
+	if(message.from.id == 353196474 && text.includes("nice"))
+		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
+	else if(text == undefined)
+		reply("unknown error");
+});
+
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
 
@@ -61,9 +71,16 @@ bot.command("test", feature);
 bot.command("rogue", feature);
 
 bot.command("forecast", feature);
-
-bot.command("inba", inba);											// TODO: command can only be used by bot owner to switch cronjob on and off
-
+/* test
+bot.command("inba", ({ message, reply }) => {
+	if(message.from.id == 353196474) {
+		reply("inba protocol initiated");
+		inba;
+	}
+	else
+		reply("not authorized");
+});											// TODO: command can only be used by bot owner to switch cronjob on and off
+*/
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
