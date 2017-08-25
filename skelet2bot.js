@@ -52,13 +52,6 @@ bot.text(({ message, reply }) => {
 		reply("unknown error");
 */
 
-bot.on("text", ({ message, replyWithSticker, reply }) => {
-	const text = message.text.toLowerCase();
-	if(message.from.id == 353196474 && text.includes("nice"))
-		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
-	else if(text == undefined)
-		reply("unknown error");
-});
 
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
@@ -72,10 +65,10 @@ bot.command("rogue", feature);
 
 bot.command("forecast", feature);
 
-bot.command("inba", ({ message, reply }) => {
+bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	if(message.from.id == 353196474) {
 		reply("inba protocol initiated");
-		inba;
+		inba({ replyWithVideo });
 	}
 	else
 		reply("not authorized");
@@ -134,5 +127,13 @@ bot.command("papiez", ({ replyWithVideo }) =>
 	replyWithVideo("https://vignette4.wikia.nocookie.net" +
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
 		"?cb=20130929184445"));
+
+bot.on("text", ({ message, replyWithSticker, reply }) => {
+	const text = message.text.toLowerCase();
+	if(message.from.id == 353196474 && text.includes("nice"))
+		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
+	else if(text == undefined)
+		reply("unknown error");
+});
 
 bot.startPolling();
