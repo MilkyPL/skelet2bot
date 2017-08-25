@@ -3,19 +3,28 @@
 const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-// const cron = require("node-cron");
+const cron = require("node-cron");
 // const rants = require("./rants.json");
+// const cipher = require("./cipher.json")
+const key = process.argv[2];
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
 
-const bot = new Telegraf(process.argv[2]);
+const bot = new Telegraf(key);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
 
 const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
 	"or i'm too retarded to implement it");
+
+const inba = ({ replyWithVideo }) =>								// TODO: random replies, automatic cronjob start
+	cron.schedule("37 21 * * *", function() {
+		replyWithVideo("https://vignette4.wikia.nocookie.net" +
+		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
+		"?cb=20130929184445");
+	});
 
 const cow = `<pre>
          (__)
@@ -25,6 +34,7 @@ const cow = `<pre>
  *  /\\---/\\
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
+
 /*
 bot.text(({ message, reply }) => {
 	const text = msg.text.toLowerCase();
@@ -41,15 +51,28 @@ bot.text(({ message, reply }) => {
 	if(text == undefined)
 		reply("unknown error");
 */
+
+
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
 
 bot.command("moo", ({ reply }) =>
 	reply(cow, { parse_mode: "HTML" }));
 
+bot.command("test", feature);
+
 bot.command("rogue", feature);
 
 bot.command("forecast", feature);
+
+bot.command("inba", ({ message, reply, replyWithVideo }) => {
+	if(message.from.id == 353196474) {
+		reply("inba protocol initiated");
+		inba({ replyWithVideo });
+	}
+	else
+		reply("not authorized");
+});											// TODO: command can only be used by bot owner to switch cronjob on and off
 
 bot.command("price", ({ message, reply }) =>
 	json("https://api.coinmarketcap.com/v1/ticker/")
@@ -104,5 +127,13 @@ bot.command("papiez", ({ replyWithVideo }) =>
 	replyWithVideo("https://vignette4.wikia.nocookie.net" +
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
 		"?cb=20130929184445"));
+
+bot.on("text", ({ message, replyWithSticker, reply }) => {
+	const text = message.text.toLowerCase();
+	if(message.from.id == 353196474 && text.includes("nice"))
+		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
+	else if(text == undefined)
+		reply("unknown error");
+});
 
 bot.startPolling();
