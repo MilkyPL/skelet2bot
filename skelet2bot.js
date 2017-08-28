@@ -74,13 +74,16 @@ bot.command("inba", ({ message, reply, replyWithVideo }) => {
 		reply("not authorized");
 });											// TODO: command can only be used by bot owner to switch cronjob on and off
 
-bot.command("price", ({ message, reply }) =>
-	json("https://api.coinmarketcap.com/v1/ticker/")
+bot.command("price", ({ message, reply }) => {
+	if(args(message.text) == undefined)
+		reply("give me a valid symbol retard");
+	else json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
 		.then(balls => balls
 			? reply(balls.name + ": " + balls.price_usd + "$")
-			: reply("give me a valid symbol retard")));
+			: reply("give me a valid symbol retard"));
+});
 
 bot.command("weather", ({ message, reply }) => {
 	const K = 273.15;
@@ -130,7 +133,7 @@ bot.command("papiez", ({ replyWithVideo }) =>
 
 bot.on("text", ({ message, replyWithSticker, reply }) => {
 	const text = message.text.toLowerCase();
-	if(message.from.id == 353196474 && text.includes("nice"))
+	if(message.from.id == 353196474 && text.includes("nice") || message.from.id == 128432371 && text.includes("nice"))
 		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
 	else if(text == undefined)
 		reply("unknown error");
