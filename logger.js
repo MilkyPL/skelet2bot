@@ -2,7 +2,7 @@ const fs = require("fs");
 const { sep } = require("path");
 
 const { TelegramBot } = require("telebotframework");
-const { InputFile } = require("teleapiwrapper").DataTypes;
+const { InputFile } = require("teleapiwrapper");
 
 const bot = new TelegramBot(process.argv[2]);
 
