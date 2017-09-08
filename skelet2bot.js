@@ -20,7 +20,7 @@ const feature = ({ reply }) =>
 	"or i'm too retarded to implement it");
 
 const inba = ({ replyWithVideo }) =>								// TODO: random replies, automatic cronjob start
-	cron.schedule("37 21 * * *", function() {
+	cron.schedule("*/10 37 21 * * *", function() {
 		replyWithVideo("https://vignette4.wikia.nocookie.net" +
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
 		"?cb=20130929184445");
