@@ -69,9 +69,7 @@ bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	if(message.from.id == 353196474) {
 		reply("inba protocol initiated");
 		inba({ replyWithVideo });
-	}
-	else
-		reply("not authorized");
+	} else reply("not authorized");
 });											// TODO: command can only be used by bot owner to switch cronjob on and off
 
 bot.command("price", ({ message, reply }) => {
