@@ -60,9 +60,9 @@ bot.command("price", ({ message, reply }) => {
 	else json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
-		.then(balls => balls 
-			? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h)
-			: reply("give me a valid symbol retard"));
+		.then(balls => balls.percent_change_24h.includes("-") //as long as it works
+			? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + " 📉")
+			: reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + " 📈"));
 });
 
 bot.command("weather", ({ message, reply }) => {
