@@ -18,8 +18,12 @@
   "homepage": "https://github.com/MilkyPL/skelet2bot#readme",
   "dependencies": {
     "cowsay": "^1.1.9",
+    "fs": "0.0.1-security",
     "node-cron": "^1.2.1",
+    "path": "^0.12.7",
     "req": "github:trgwii/req",
+    "teleapiwrapper": "^2.3.1",
+    "telebotframework": "^0.11.2",
     "telegraf": "^3.9.0"
   },
   "devDependencies": {}

@@ -4,8 +4,6 @@ const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
 const cron = require("node-cron");
-// const rants = require("./rants.json");
-// const cipher = require("./cipher.json")
 const key = process.argv[2];
 
 const args = text => text.split(" ").slice(1);
@@ -20,7 +18,7 @@ const feature = ({ reply }) =>
 	"or i'm too retarded to implement it");
 
 const inba = ({ replyWithVideo }) =>								// TODO: random replies, automatic cronjob start
-	cron.schedule("37 21 * * *", function() {
+	cron.schedule("*/10 37 21 * * *", function() {
 		replyWithVideo("https://vignette4.wikia.nocookie.net" +
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
 		"?cb=20130929184445");
@@ -34,24 +32,6 @@ const cow = `<pre>
  *  /\\---/\\
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
-
-/*
-bot.text(({ message, reply }) => {
-	const text = msg.text.toLowerCase();
-	if(text.includes("linux") && !text.includes("gnu"))
-			reply.reply(msg).text(rants.linux[Math.floor(Math.random()*
-				rants.linux.length)]);
-	if(text.includes("raphy") && !text.includes("faggot"))
-			reply.reply(msg).text(rants.raphy[Math.floor(Math.random()*
-				rants.raphy.length)]);
-	if(text.includes("fighting games"))
-		reply.reply(msg).text("fuck off with your gay fighting games nigger");
-	if(text.includes("😂"))
-		reply.reply(msg).text("fuck off faggot");
-	if(text == undefined)
-		reply("unknown error");
-*/
-
 
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
@@ -69,8 +49,10 @@ bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	if(message.from.id == 353196474) {
 		reply("inba protocol initiated");
 		inba({ replyWithVideo });
-	} else reply("not authorized");
-});											// TODO: command can only be used by bot owner to switch cronjob on and off
+	}
+	else reply("not authorized");
+});											// TODO: switch cronjob on and off
+
 
 bot.command("price", ({ message, reply }) => {
 	if(args(message.text) == undefined)
@@ -78,9 +60,9 @@ bot.command("price", ({ message, reply }) => {
 	else json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
-		.then(balls => balls
-			? reply(balls.name + ": " + balls.price_usd + "$")
-			: reply("give me a valid symbol retard"));
+		.then(balls => balls.percent_change_24h.includes("-") //as long as it works
+			? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + " 📉")
+			: reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + " 📈"));
 });
 
 bot.command("weather", ({ message, reply }) => {
