@@ -53,6 +53,7 @@ bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	else reply("not authorized");
 });											// TODO: switch cronjob on and off
 
+
 bot.command("price", ({ message, reply }) => {
 	if(args(message.text) == undefined)
 		reply("give me a valid symbol retard");
