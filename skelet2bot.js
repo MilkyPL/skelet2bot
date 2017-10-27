@@ -50,8 +50,7 @@ bot.command("inba", ({ message, reply, replyWithVideo }) => {
 		reply("inba protocol initiated");
 		inba({ replyWithVideo });
 	}
-	else
-		reply("not authorized");
+	else reply("not authorized");
 });											// TODO: switch cronjob on and off
 
 bot.command("price", ({ message, reply }) => {
