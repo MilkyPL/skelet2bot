@@ -4,8 +4,6 @@ const Telegraf = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
 const cron = require("node-cron");
-// const rants = require("./rants.json");
-// const cipher = require("./cipher.json")
 const key = process.argv[2];
 
 const args = text => text.split(" ").slice(1);
@@ -35,24 +33,6 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
-/*
-bot.text(({ message, reply }) => {
-	const text = msg.text.toLowerCase();
-	if(text.includes("linux") && !text.includes("gnu"))
-			reply.reply(msg).text(rants.linux[Math.floor(Math.random()*
-				rants.linux.length)]);
-	if(text.includes("raphy") && !text.includes("faggot"))
-			reply.reply(msg).text(rants.raphy[Math.floor(Math.random()*
-				rants.raphy.length)]);
-	if(text.includes("fighting games"))
-		reply.reply(msg).text("fuck off with your gay fighting games nigger");
-	if(text.includes("😂"))
-		reply.reply(msg).text("fuck off faggot");
-	if(text == undefined)
-		reply("unknown error");
-*/
-
-
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
 
@@ -72,7 +52,7 @@ bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	}
 	else
 		reply("not authorized");
-});											// TODO: command can only be used by bot owner to switch cronjob on and off
+});											// TODO: switch cronjob on and off
 
 bot.command("price", ({ message, reply }) => {
 	if(args(message.text) == undefined)
@@ -80,8 +60,8 @@ bot.command("price", ({ message, reply }) => {
 	else json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
-		.then(balls => balls
-			? reply(balls.name + ": " + balls.price_usd + "$")
+		.then(balls => balls 
+			? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h)
 			: reply("give me a valid symbol retard"));
 });
 
