@@ -18,7 +18,7 @@ bot.telegram.getMe().then(data =>
 
 const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
-	"or i'm too retarded to implement it");
+	"or I'm too retarded to implement it");
 
 const inba = ({ replyWithVideo }) =>								// TODO: random replies, automatic cronjob start
 	cron.schedule("*/10 37 21 * * *", function() {
