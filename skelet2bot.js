@@ -48,8 +48,17 @@ bot.command("rogue", feature);
 
 bot.command("forecast", feature);
 
-bot.command("danbooru", feature);
-
+bot.command("danbooru", feature); //broken shit
+/* bot.command("danbooru", ({ message, reply, replyWithPhoto, }) => {
+	const tags = args(message.text);
+	booru.posts(tags)
+		.then(cunt => cunt[Math.floor(Math.random()*cunt.length)])
+		.then(dick => dick.id)
+		.then(ass => booru.posts.get(ass))
+		.then(boob => replyWithPhoto(boob))
+		.catch(reply("unknown error"));
+});
+*/
 bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	if(message.from.id == 353196474) {
 		reply("inba protocol initiated");
