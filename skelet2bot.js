@@ -5,6 +5,7 @@ const { json } = require("req");
 const cowsay = require("cowsay");
 const cron = require("node-cron");
 const key = process.argv[2];
+// const Danbooru = require("danbooru");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -12,6 +13,8 @@ const argstring = text => args(text).join(" ").trim();
 const bot = new Telegraf(key);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
+
+// const booru = new Danbooru();
 
 const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
@@ -44,6 +47,8 @@ bot.command("test", feature);
 bot.command("rogue", feature);
 
 bot.command("forecast", feature);
+
+bot.command("danbooru", feature);
 
 bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	if(message.from.id == 353196474) {
