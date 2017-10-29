@@ -1,6 +1,7 @@
 "use strict";
 
 const Telegraf = require("telegraf");
+const { Telegram } = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
 const cron = require("node-cron");
@@ -13,6 +14,8 @@ const argstring = text => args(text).join(" ").trim();
 const bot = new Telegraf(key);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
+
+const tg = new Telegram(key);
 
 // const booru = new Danbooru();
 
@@ -125,7 +128,12 @@ bot.command("papiez", ({ replyWithVideo }) =>
 		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
 		"?cb=20130929184445"));
 
-bot.on("text", ({ message, replyWithSticker, reply }) => {
+bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
+	let msg = message.from.username + ": " + message.text;
+	if (message.from.username == undefined)
+		msg = message.from.first_name + " " + message.from.last_name + ": " + message.text;
+	if(message.chat.id != "-1001064029829" && message.chat.id != "-1001138989974" && message.chat.id != "-1001144567507")
+		tg.sendMessage("@skeletlog", msg);
 	const text = message.text.toLowerCase();
 	if(message.from.id == 353196474 && text.includes("nice") || message.from.id == 128432371 && text.includes("nice"))
 		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
