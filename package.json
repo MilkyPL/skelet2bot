@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MilkyPL/skelet2bot#readme",
   "dependencies": {
     "cowsay": "^1.1.9",
+    "danbooru": "^2.0.3",
     "fs": "0.0.1-security",
     "node-cron": "^1.2.1",
     "path": "^0.12.7",
