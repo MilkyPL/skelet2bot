@@ -7,7 +7,7 @@ const cowsay = require("cowsay");
 const cron = require("node-cron");
 const key = process.argv[2];
 const readline = require("readline");
-// const Danbooru = require("danbooru");
+const Danbooru = require("danbooru");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -24,7 +24,7 @@ const rl = readline.createInterface({
 
 const tg = new Telegram(key);
 
-// const booru = new Danbooru();
+const booru = new Danbooru();
 
 const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
@@ -46,6 +46,8 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
+const cows = ["beavis.zen", "bong", "bud-frogs", "bunny", "cheese", "cower", "daemon", "default", "doge", "dragon-and-cow", "dragon", "elephant-in-snake", "elephant", "eyes", "flaming-sheep", "ghostbusters", "goat", "head-in", "hedgehog", "hellokitty", "kiss", "kitty", "koala", "kosh", "luke-koala", "mech-and-cow", "meow", "milk", "moofasa", "moose", "mutilated", "ren", "satanic", "sheep", "skeleton", "small", "sodomized", "squirrel", "stegosaurus", "stimpy", "supermilker", "surgery", "telebears", "turkey", "turtle", "tux", "vader-koala", "vader", "whale", "www"];
+
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
 
@@ -58,8 +60,7 @@ bot.command("rogue", feature);
 
 bot.command("forecast", feature);
 
-bot.command("danbooru", feature); //broken shit
-/* bot.command("danbooru", ({ message, reply, replyWithPhoto, }) => {
+bot.command("danbooru", ({ message, reply, replyWithPhoto, }) => {
 	const tags = args(message.text);
 	booru.posts(tags)
 		.then(cunt => cunt[Math.floor(Math.random()*cunt.length)])
@@ -68,7 +69,7 @@ bot.command("danbooru", feature); //broken shit
 		.then(boob => replyWithPhoto(boob))
 		.catch(reply("unknown error"));
 });
-*/
+
 bot.command("inba", ({ message, reply, replyWithVideo }) => {
 	if(message.from.id == 353196474) {
 		reply("inba protocol initiated");
@@ -125,10 +126,24 @@ bot.command("skelet", ({ reply }) => {
 	return reply(skelets);
 });
 
-bot.command("cowsay", ({ message, reply }) =>
-	reply("```" + cowsay.say({
-		text : argstring(message.text) || "Have you mooed today?"
-	}) + "```", { parse_mode: "Markdown" }));
+bot.command("cowsay", ({ message, reply }) => {
+	const arg = args(message.text);
+	let text = arg.slice();
+	text.splice(0,1);
+	const cowlist = cows.join(" ");
+	if(cowlist.includes(arg[0])) {
+		reply("```" + cowsay.say({
+			text : text.join(" ") || "I'm too dumb to type some text",
+			f : arg[0]
+		}) + "```", { parse_mode: "Markdown" });
+	} else if(arg[0].includes("list")) {
+		reply(cowlist);
+	} else {
+		reply("```" + cowsay.say({
+			text : arg.join(" ") || "Have you mooed today?",
+		}) + "```", { parse_mode: "Markdown" });
+	}
+});
 
 bot.command("papiez", ({ replyWithVideo }) =>
 	replyWithVideo("https://vignette4.wikia.nocookie.net" +
@@ -146,6 +161,14 @@ bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
 	else if(text == undefined)
 		reply("unknown error");
+});
+
+bot.on("photo", ({ message, tg }) => {
+	let caption = message.from.username + ": " + message.caption;
+	if (message.from.username == undefined)
+		caption = message.from.first_name + " " + message.from.last_name + ": " + message.caption;
+	if(message.chat.id != "-1001064029829" && message.chat.id != "-1001138989974" && message.chat.id != "-1001144567507")
+		tg.sendPhoto("@skeletlog", "AgADBAADfaoxG7iKsVPYCaI5l5clN2k5IBoABAKuheQGY-H5tjIAAgI", caption);
 });
 
 let id = "@skeletlog";
