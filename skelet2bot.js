@@ -73,7 +73,9 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 });
 
 bot.command("price", ({ message, reply }) => {
-	json("https://api.coinmarketcap.com/v1/ticker/")
+	if(args(message.text)[0] == undefined)
+		reply("input a valid ticker symbol retard");
+	else json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
 		.then(balls => balls.percent_change_24h.includes("-") //as long as it works
