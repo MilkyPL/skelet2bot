@@ -4,10 +4,11 @@ const Telegraf = require("telegraf");
 const { Telegram } = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-const cron = require("node-cron");
+// const cron = require("node-cron");
 const key = process.argv[2];
 const readline = require("readline");
 const Danbooru = require("danbooru");
+const fs = require("fs");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -30,13 +31,6 @@ const feature = ({ reply }) =>
 	reply("This feature is either under construction " +
 	"or I'm too retarded to implement it");
 
-const inba = ({ replyWithVideo }) =>								// TODO: random replies, automatic cronjob start
-	cron.schedule("*/10 37 21 * * *", function() {
-		replyWithVideo("https://vignette4.wikia.nocookie.net" +
-		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
-		"?cb=20130929184445");
-	});
-
 const cow = `<pre>
          (__)
          (oo)
@@ -58,31 +52,28 @@ bot.command("test", feature);
 
 bot.command("rogue", feature);
 
-bot.command("forecast", feature);
-
-bot.command("danbooru", ({ message, reply, replyWithPhoto, }) => {
+bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
-	booru.posts(tags)
-		.then(cunt => cunt[Math.floor(Math.random()*cunt.length)])
-		.then(dick => dick.id)
-		.then(ass => booru.posts.get(ass))
-		.then(boob => replyWithPhoto(boob))
-		.catch(reply("unknown error"));
+	if(tags == "")
+		reply("you forgot to specify tags retard");
+	else booru.posts(tags)
+		.then(posts => posts[Math.floor(Math.random()*posts.length)])
+		.then(post => booru.posts.get(post))
+		.then(postInfo => {
+			const file = postInfo.file;
+			if(!("request" in file))
+				reply("image unavailable");
+			file.download()
+				.then(dataBuffer => {
+					fs.writeFileSync(`./img/${file.name}`, dataBuffer);
+					replyWithPhoto(`file://./img/${file.name}`); // have to create a form to upload the image
+					fs.unlinkSync(`./img/${file.name}`);
+				});
+		});
 });
 
-bot.command("inba", ({ message, reply, replyWithVideo }) => {
-	if(message.from.id == 353196474) {
-		reply("inba protocol initiated");
-		inba({ replyWithVideo });
-	}
-	else reply("not authorized");
-});											// TODO: switch cronjob on and off
-
-
 bot.command("price", ({ message, reply }) => {
-	if(args(message.text) == undefined)
-		reply("give me a valid symbol retard");
-	else json("https://api.coinmarketcap.com/v1/ticker/")
+	json("https://api.coinmarketcap.com/v1/ticker/")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
 		.then(balls => balls.percent_change_24h.includes("-") //as long as it works
@@ -131,7 +122,9 @@ bot.command("cowsay", ({ message, reply }) => {
 	let text = arg.slice();
 	text.splice(0,1);
 	const cowlist = cows.join(" ");
-	if(cowlist.includes(arg[0])) {
+	if(arg == undefined || message.text == undefined || arg[0] == undefined) {
+		reply("specify animal and/or text");
+	} else if(cowlist.includes(arg[0])) {
 		reply("```" + cowsay.say({
 			text : text.join(" ") || "I'm too dumb to type some text",
 			f : arg[0]
@@ -144,11 +137,6 @@ bot.command("cowsay", ({ message, reply }) => {
 		}) + "```", { parse_mode: "Markdown" });
 	}
 });
-
-bot.command("papiez", ({ replyWithVideo }) =>
-	replyWithVideo("https://vignette4.wikia.nocookie.net" +
-		"/nonsensopedia/images/c/cf/Patron.gif/revision/latest" +
-		"?cb=20130929184445"));
 
 bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 	let msg = message.from.username + ": " + message.text;
