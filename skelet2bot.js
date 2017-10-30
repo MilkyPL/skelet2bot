@@ -77,8 +77,8 @@ bot.command("price", ({ message, reply }) => {
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
 		.then(balls => balls.percent_change_24h.includes("-") //as long as it works
-			? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + " 📉")
-			: reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + " 📈"));
+			? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + "% 📉")
+			: reply(balls.name + ": " + balls.price_usd + "$ +" + balls.percent_change_24h + "% 📈"));
 });
 
 bot.command("weather", ({ message, reply }) => {
