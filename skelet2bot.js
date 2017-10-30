@@ -174,8 +174,10 @@ bot.on("photo", ({ message, tg }) => {
 	let caption = message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id != "-1001064029829" && message.chat.id != "-1001138989974" && message.chat.id != "-1001144567507")
-		tg.sendPhoto("@skeletlog", "AgADBAADfaoxG7iKsVPYCaI5l5clN2k5IBoABAKuheQGY-H5tjIAAgI", caption);
+	if(message.chat.id != "-1001064029829" && message.chat.id != "-1001138989974" && message.chat.id != "-1001144567507"){
+		tg.sendPhoto("@skeletlog", message.photo[0].file_id, [caption]);
+		tg.sendMessage("@skeletlog", caption);
+	}
 });
 
 let id = "@skeletlog";
