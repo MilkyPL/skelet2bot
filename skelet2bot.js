@@ -54,11 +54,15 @@ bot.command("rogue", feature);
 
 bot.command("danbooru", ({ message, reply, /*replyWithPhoto*/ }) => {
 	const tags = args(message.text);
+	let errors = "Following errors occured:\n";
 	if(tags == "")
 		reply("you forgot to specify tags retard");
 	else booru.posts(tags)
 		.then(posts => posts[Math.floor(Math.random()*posts.length)])
 		.then(post => booru.posts.get(post))
+		.catch(function(e) {
+			errors += e + "\n";
+		})
 		.then(postInfo => {
 			const file = postInfo.file;
 			if(!("request" in file))
@@ -69,7 +73,14 @@ bot.command("danbooru", ({ message, reply, /*replyWithPhoto*/ }) => {
 					// replyWithPhoto(`file://./img/${file.name}`); // have to create a form to upload the image
 					reply(`File name: ${file.name}\nPost ID: ${postInfo.id}\nUploading images not implemented`);
 					fs.unlinkSync(`./img/${file.name}`);
+				})
+				.catch(function(e) {
+					errors += e + "\n";
 				});
+		})
+		.catch(function(e) {
+			errors += e + "\n";
+			reply(errors);
 		});
 });
 
