@@ -78,7 +78,8 @@ bot.command("danbooru", ({ message, reply, /*replyWithPhoto*/ }) => {
 				.then(dataBuffer => {
 					fs.writeFileSync(`./img/${file.name}`, dataBuffer);
 					// replyWithPhoto(`file://./img/${file.name}`); // have to create a form to upload the image
-					reply(`File name: ${file.name}\nPost ID: ${postInfo.id}\nUploading images not implemented`);
+					reply(`File name: ${file.name}\nPost ID: ` + 
+					`${postInfo.id}\nUploading images not implemented`);
 					fs.unlinkSync(`./img/${file.name}`);
 				})
 				.catch(function(e) {
