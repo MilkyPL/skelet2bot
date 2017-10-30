@@ -59,6 +59,8 @@ bot.command("test", feature);
 
 bot.command("rogue", feature);
 
+bot.command("info", feature);
+
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
 	let errors = "Following errors occured:\n";
@@ -82,7 +84,7 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 		})
 		.catch(function(e) {
 			errors += e + "\n";
-			reply(errors);
+			reply(errors + "You propably used nonexisting tags.");
 		});
 });
 
