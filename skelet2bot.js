@@ -74,7 +74,7 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 			const file = postInfo.file;
 			if(!("request" in file))
 				reply("image unavailable");
-			replyWithPhoto(`https://danbooru.donmai.us/data/${file.name}`);
+			else replyWithPhoto(`https://danbooru.donmai.us/data/${file.name}`);
 			reply(`Post ID: ${postInfo.id}\n` + 
 			`Artist: ${postInfo.tags.artist}\n` +
 			`Characters: ${postInfo.tags.character}\n` +
