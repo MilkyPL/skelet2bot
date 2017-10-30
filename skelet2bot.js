@@ -8,7 +8,7 @@ const cowsay = require("cowsay");
 const key = process.argv[2];
 const readline = require("readline");
 const Danbooru = require("danbooru");
-const fs = require("fs");
+// const fs = require("fs");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
