@@ -40,7 +40,14 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
-const cows = ["beavis.zen", "bong", "bud-frogs", "bunny", "cheese", "cower", "daemon", "default", "doge", "dragon-and-cow", "dragon", "elephant-in-snake", "elephant", "eyes", "flaming-sheep", "ghostbusters", "goat", "head-in", "hedgehog", "hellokitty", "kiss", "kitty", "koala", "kosh", "luke-koala", "mech-and-cow", "meow", "milk", "moofasa", "moose", "mutilated", "ren", "satanic", "sheep", "skeleton", "small", "sodomized", "squirrel", "stegosaurus", "stimpy", "supermilker", "surgery", "telebears", "turkey", "turtle", "tux", "vader-koala", "vader", "whale", "www"];
+const cows = "beavis.zen bong bud-frogs bunny cheese " +
+"cower daemon default doge dragon-and-cow dragon " + 
+"elephant-in-snake elephant eyes flaming-sheep " +
+"ghostbusters goat head-in hedgehog hellokitty kiss " +
+"kitty koala kosh luke-koala mech-and-cow meow milk " +
+"moofasa moose mutilated ren satanic sheep skeleton " +
+"small sodomized squirrel stegosaurus stimpy supermilker " +
+"surgery telebears turkey turtle tux vader-koala vader whale www";
 
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
@@ -139,16 +146,15 @@ bot.command("cowsay", ({ message, reply }) => {
 	const arg = args(message.text);
 	let text = arg.slice();
 	text.splice(0,1);
-	const cowlist = cows.join(" ");
 	if(arg == undefined || message.text == undefined || arg[0] == undefined) {
 		reply("specify animal and/or text");
-	} else if(cowlist.includes(arg[0])) {
+	} else if(cows.includes(arg[0])) {
 		reply("```" + cowsay.say({
 			text : text.join(" ") || "I'm too dumb to type some text",
 			f : arg[0]
 		}) + "```", { parse_mode: "Markdown" });
 	} else if(arg[0].includes("list")) {
-		reply(cowlist);
+		reply(cows);
 	} else {
 		reply("```" + cowsay.say({
 			text : arg.join(" ") || "Have you mooed today?",
