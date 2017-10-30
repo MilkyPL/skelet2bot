@@ -52,7 +52,7 @@ bot.command("test", feature);
 
 bot.command("rogue", feature);
 
-bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
+bot.command("danbooru", ({ message, reply, /*replyWithPhoto*/ }) => {
 	const tags = args(message.text);
 	if(tags == "")
 		reply("you forgot to specify tags retard");
@@ -66,7 +66,8 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 			file.download()
 				.then(dataBuffer => {
 					fs.writeFileSync(`./img/${file.name}`, dataBuffer);
-					replyWithPhoto(`file://./img/${file.name}`); // have to create a form to upload the image
+					// replyWithPhoto(`file://./img/${file.name}`); // have to create a form to upload the image
+					reply(`File name: ${file.name}\nPost ID: ${postInfo.id}\nUploading images not implemented`);
 					fs.unlinkSync(`./img/${file.name}`);
 				});
 		});
