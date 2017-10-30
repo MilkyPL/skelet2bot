@@ -59,7 +59,7 @@ bot.command("test", feature);
 
 bot.command("rogue", feature);
 
-bot.command("danbooru", ({ message, reply, /*replyWithPhoto*/ }) => {
+bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
 	let errors = "Following errors occured:\n";
 	if(tags == "")
@@ -74,14 +74,11 @@ bot.command("danbooru", ({ message, reply, /*replyWithPhoto*/ }) => {
 			const file = postInfo.file;
 			if(!("request" in file))
 				reply("image unavailable");
-			file.download()
-				.then(dataBuffer => {
-					fs.writeFileSync(`./img/${file.name}`, dataBuffer);
-					// replyWithPhoto(`file://./img/${file.name}`); // have to create a form to upload the image
-					reply(`File name: ${file.name}\nPost ID: ` + 
-					`${postInfo.id}\nUploading images not implemented`);
-					fs.unlinkSync(`./img/${file.name}`);
-				})
+			replyWithPhoto(`https://danbooru.donmai.us/data/${file.name}`)
+				.then(reply(`Post ID: ${postInfo.id}\n` + 
+				`Artist: ${postInfo.tags.artist}\n` +
+				`Characters: ${postInfo.tags.character}\n` +
+				`Copyright info: ${postInfo.tags.copyright}`))
 				.catch(function(e) {
 					errors += e + "\n";
 				});
