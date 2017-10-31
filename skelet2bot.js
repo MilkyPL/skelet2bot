@@ -40,14 +40,7 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
-const cows = ["beavis.zen", "bong", "bud-frogs", "bunny", "cheese" +
-"cower", "daemon", "default", "doge", "dragon-and-cow", "dragon", +
-"elephant-in-snake", "elephant", "eyes", "flaming-sheep", +
-"ghostbusters", "goat", "head-in", "hedgehog", "hellokitty", "kiss", +
-"kitty", "koala", "kosh", "luke-koala", "mech-and-cow", "meow", "milk", +
-"moofasa", "moose", "mutilated", "ren", "satanic", "sheep", "skeleton", +
-"small", "sodomized", "squirrel", "stegosaurus", "stimpy", "supermilker", +
-"surgery", "telebears", "turkey", "turtle", "tux", "vader-koala", "vader", "whale", "www"];
+const cows = ["beavis.zen", "bong", "bud-frogs", "bunny", "cheese", "cower", "daemon", "default", "doge", "dragon-and-cow", "dragon", "elephant-in-snake", "elephant", "eyes", "flaming-sheep", "ghostbusters", "goat", "head-in", "hedgehog", "hellokitty", "kiss", "kitty", "koala", "kosh", "luke-koala", "mech-and-cow", "meow", "milk", "moofasa", "moose", "mutilated", "ren", "satanic", "sheep", "skeleton", "small", "sodomized", "squirrel", "stegosaurus", "stimpy", "supermilker", "surgery", "telebears", "turkey", "turtle", "tux", "vader-koala", "vader", "whale", "www"];
 
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
