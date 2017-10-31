@@ -77,14 +77,18 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 			if(!("request" in file))
 				reply("image unavailable");
 			else replyWithPhoto(`https://danbooru.donmai.us/data/${file.name}`)
+				.catch(function(e) {
+					if(e.toString().includes("400"))
+						replyWithPhoto(`https://danbooru.donmai.us/cached/data/${file.name}`);
+					else {
+						errors += e + " (image unavailable)\n";
+						reply(errors);
+					}
+				})
 				.then(reply(`Post ID: ${postInfo.id}\n` + 
 				`Artist: ${postInfo.tags.artist}\n` +
 				`Characters: ${postInfo.tags.character}\n` +
-				`Copyright info: ${postInfo.tags.copyright}`))
-				.catch(function(e) {
-					errors += e + " (image unavailable)\n";
-					reply(errors);
-				});
+				`Copyright info: ${postInfo.tags.copyright}`));
 		})
 		.catch(function(e) {
 			errors += e + "\n";
