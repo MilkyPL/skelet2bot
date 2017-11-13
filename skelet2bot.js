@@ -92,7 +92,7 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 bot.command("price", ({ message, reply }) => {
 	if(args(message.text)[0] == undefined)
 		reply("input a valid ticker symbol retard");
-	else json("https://api.coinmarketcap.com/v1/ticker/")
+	else json("https://api.coinmarketcap.com/v1/ticker/?limit=0")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
 		.then(balls => {
