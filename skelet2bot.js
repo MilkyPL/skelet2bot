@@ -155,7 +155,7 @@ bot.command("cowsay", ({ message, reply }) => {
 			}) + "```", { parse_mode: "Markdown" });
 			notCow = true; //fucking genius
 			break;
-		}
+		} else continue;
 	} if(arg[0].includes("list") && notCow === false) {
 		reply(cows);
 	} else if(notCow === false) {
