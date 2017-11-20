@@ -169,8 +169,8 @@ bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 	let msg = message.from.username + ": " + message.text;
 	if (message.from.username == undefined)
 		msg = message.from.first_name + " " + message.from.last_name + ": " + message.text;
-	if(message.chat.id != "-1001064029829" && message.chat.id != "-1001138989974" && message.chat.id != "-1001144567507")
-		tg.sendMessage("@skeletlog", msg);
+	if(message.chat.id != "-1001144567507")
+		tg.sendMessage("-1001144567507", msg);
 	const text = message.text.toLowerCase();
 	if(message.from.id == 353196474 && text.includes("nice") || message.from.id == 128432371 && text.includes("nice"))
 		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
@@ -182,13 +182,23 @@ bot.on("photo", ({ message, tg }) => {
 	let caption = message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id != "-1001064029829" && message.chat.id != "-1001138989974" && message.chat.id != "-1001144567507"){
-		tg.sendPhoto("@skeletlog", message.photo[0].file_id, [caption]);
-		tg.sendMessage("@skeletlog", caption);
+	if(message.chat.id != "-1001144567507"){
+		tg.sendPhoto("-1001144567507", message.photo[0].file_id, [caption]);
+		tg.sendMessage("-1001144567507", caption);
 	}
 });
 
-let id = "@skeletlog";
+bot.on("video", ({ message, tg }) => {
+	let caption = message.from.username + ": " + message.caption;
+	if (message.from.username == undefined)
+		caption = message.from.first_name + " " + message.from.last_name + ": " + message.caption;
+	if(message.chat.id != "-1001144567507"){
+		tg.sendVideo("-1001144567507", message.video.file_id, [caption]);
+		tg.sendMessage("-1001144567507", caption);
+	}
+})
+
+let id = "-1001144567507";
 rl.prompt();
 rl.on("line", (line) => {
 	switch (line.trim()) {
