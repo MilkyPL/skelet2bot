@@ -183,20 +183,26 @@ bot.on("photo", ({ message, tg }) => {
 	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id != "-1001144567507"){
+	if(message.chat.id == "-1001144567507"){
+		tg.sendPhoto("-1001064029829", message.photo[0].file_id, [caption]);
+		tg.sendMessage("-1001064029829", caption);
+	} else {
 		tg.sendPhoto("-1001144567507", message.photo[0].file_id, [caption]);
 		tg.sendMessage("-1001144567507", caption);
-	}
+	};
 });
 
 bot.on("video", ({ message, tg }) => {
 	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id != "-1001144567507"){
+	if(message.chat.id == "-1001144567507"){
+		tg.sendVideo("-1001064029829", message.video.file_id, [caption]);
+		tg.sendMessage("-1001064029829", caption);
+	} else {
 		tg.sendVideo("-1001144567507", message.video.file_id, [caption]);
 		tg.sendMessage("-1001144567507", caption);
-	}
+	};
 })
 
 let id = "-1001144567507";
