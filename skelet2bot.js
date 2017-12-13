@@ -189,7 +189,7 @@ bot.on("photo", ({ message, tg }) => {
 	} else {
 		tg.sendPhoto("-1001144567507", message.photo[0].file_id, [caption]);
 		tg.sendMessage("-1001144567507", caption);
-	};
+	}
 });
 
 bot.on("video", ({ message, tg }) => {
@@ -202,8 +202,8 @@ bot.on("video", ({ message, tg }) => {
 	} else {
 		tg.sendVideo("-1001144567507", message.video.file_id, [caption]);
 		tg.sendMessage("-1001144567507", caption);
-	};
-})
+	}
+});
 
 let id = "-1001144567507";
 rl.prompt();
