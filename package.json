@@ -1,7 +1,7 @@
 {
   "name": "skelet2bot",
-  "version": "1.0.0",
-  "description": "assballs",
+  "version": "2.0.0-dev",
+  "description": "Telegraf-based bot for my personal use",
   "main": "skelet2bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,12 +19,7 @@
   "dependencies": {
     "cowsay": "^1.1.9",
     "danbooru": "^2.0.3",
-    "fs": "0.0.1-security",
-    "node-cron": "^1.2.1",
-    "path": "^0.12.7",
     "req": "github:trgwii/req",
-    "request": "^2.83.0",
-    "teleapiwrapper": "^2.3.1",
     "telegraf": "^3.9.0"
   },
   "devDependencies": {}

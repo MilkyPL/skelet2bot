@@ -4,11 +4,9 @@ const Telegraf = require("telegraf");
 const { Telegram } = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-// const cron = require("node-cron");
 const key = process.argv[2];
 const readline = require("readline");
 const Danbooru = require("danbooru");
-// const fs = require("fs");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -153,7 +151,7 @@ bot.command("cowsay", ({ message, reply }) => {
 				text : text.join(" ") || "I'm too dumb to type some text",
 				f : arg[0]
 			}) + "```", { parse_mode: "Markdown" });
-			notCow = true; //fucking genius
+			notCow = true;
 			break;
 		} else continue;
 	} if(arg[0].includes("list") && notCow === false) {
@@ -164,7 +162,7 @@ bot.command("cowsay", ({ message, reply }) => {
 		}) + "```", { parse_mode: "Markdown" });
 	}
 });
-
+/* //To be moved to plugins/bridge.js
 bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 	let msg = message.chat.title + "\n" + message.from.username + ": " + message.text;
 	if (message.from.username == undefined)
@@ -200,7 +198,6 @@ bot.on("video", ({ message, tg }) => {
 		tg.sendVideo("-1001144567507", message.video.file_id, { caption });
 	}
 });
-
 let id = "-1001144567507";
 rl.prompt();
 rl.on("line", (line) => {
