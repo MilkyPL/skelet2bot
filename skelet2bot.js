@@ -201,6 +201,17 @@ bot.on("video", ({ message, tg }) => {
 	}
 });
 
+bot.on("document", ({ message, tg }) => {
+	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
+	if (message.from.username == undefined)
+		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
+	if(message.chat.id == "-1001144567507"){
+		tg.sendDocument("-1001064029829", message.document.file_id, { caption });
+	} else {
+		tg.sendDocument("-1001144567507", message.document.file_id, { caption });
+	}
+});
+
 let id = "-1001144567507";
 rl.prompt();
 rl.on("line", (line) => {
