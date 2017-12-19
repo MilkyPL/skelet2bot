@@ -98,7 +98,7 @@ bot.command("price", ({ message, reply }) => {
 		.then(balls => {
 			if(balls == undefined)
 				reply("input a valid ticker symbol retard");
-			else balls.percent_change_24h.includes("-") //as long as it works
+			else balls.percent_change_24h.includes("-")
 				? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + "% 📉")
 				: reply(balls.name + ": " + balls.price_usd + "$ +" + balls.percent_change_24h + "% 📈");
 		});
@@ -153,7 +153,7 @@ bot.command("cowsay", ({ message, reply }) => {
 				text : text.join(" ") || "I'm too dumb to type some text",
 				f : arg[0]
 			}) + "```", { parse_mode: "Markdown" });
-			notCow = true; //fucking genius
+			notCow = true;
 			break;
 		} else continue;
 	} if(arg[0].includes("list") && notCow === false) {
@@ -198,6 +198,17 @@ bot.on("video", ({ message, tg }) => {
 		tg.sendVideo("-1001064029829", message.video.file_id, { caption });
 	} else {
 		tg.sendVideo("-1001144567507", message.video.file_id, { caption });
+	}
+});
+
+bot.on("document", ({ message, tg }) => {
+	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
+	if (message.from.username == undefined)
+		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
+	if(message.chat.id == "-1001144567507"){
+		tg.sendDocument("-1001064029829", message.document.file_id, { caption });
+	} else {
+		tg.sendDocument("-1001144567507", message.document.file_id, { caption });
 	}
 });
 
