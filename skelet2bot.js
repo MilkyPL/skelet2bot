@@ -152,16 +152,25 @@ bot.command("cowsay", ({ message, reply }) => {
 			reply("```" + cowsay.say({
 				text : text.join(" ") || "I'm too dumb to type some text",
 				f : arg[0]
-			}) + "```", { parse_mode: "Markdown" });
+			}) + "```", { parse_mode: "Markdown" })
+				.catch(function(e) {
+					reply(e);
+				});
 			notCow = true;
 			break;
 		} else continue;
 	} if(arg[0].includes("list") && notCow === false) {
-		reply(cows);
+		reply(cows)
+			.catch(function(e) {
+				reply(e);
+			});
 	} else if(notCow === false) {
 		reply("```" + cowsay.say({
 			text : arg.join(" ") || "Have you mooed today?",
-		}) + "```", { parse_mode: "Markdown" });
+		}) + "```", { parse_mode: "Markdown" })
+			.catch(function(e) {
+				reply(e);
+			});
 	}
 });
 
