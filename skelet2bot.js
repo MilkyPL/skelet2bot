@@ -147,30 +147,32 @@ bot.command("cowsay", ({ message, reply }) => {
 	text.splice(0,1);
 	if(arg[0] == undefined) {
 		reply("specify animal and/or text");
-	} else for(let i = 0; i < cows.length; i++){
-		if(arg[0].includes(cows[i])) {
+	} else {
+		for(let i = 0; i < cows.length; i++){
+			if(arg[0].includes(cows[i])) {
+				reply("```" + cowsay.say({
+					text : text.join(" ") || "I'm too dumb to type some text",
+					f : arg[0]
+				}) + "```", { parse_mode: "Markdown" })
+					.catch(function(e) {
+						reply(e);
+					});
+				notCow = true;
+				break;
+			} else continue;
+		} if(arg[0].includes("list") && notCow === false) {
+			reply(cows)
+				.catch(function(e) {
+					reply(e);
+				});
+		} else if(notCow === false) {
 			reply("```" + cowsay.say({
-				text : text.join(" ") || "I'm too dumb to type some text",
-				f : arg[0]
+				text : arg.join(" ") || "Have you mooed today?",
 			}) + "```", { parse_mode: "Markdown" })
 				.catch(function(e) {
 					reply(e);
 				});
-			notCow = true;
-			break;
-		} else continue;
-	} if(arg[0].includes("list") && notCow === false) {
-		reply(cows)
-			.catch(function(e) {
-				reply(e);
-			});
-	} else if(notCow === false) {
-		reply("```" + cowsay.say({
-			text : arg.join(" ") || "Have you mooed today?",
-		}) + "```", { parse_mode: "Markdown" })
-			.catch(function(e) {
-				reply(e);
-			});
+		}
 	}
 });
 
