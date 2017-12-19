@@ -145,7 +145,7 @@ bot.command("cowsay", ({ message, reply }) => {
 	let text = arg.slice();
 	let notCow = false;
 	text.splice(0,1);
-	if(arg == undefined || message.text == undefined || arg[0] == undefined) {
+	if(arg[0] == undefined) {
 		reply("specify animal and/or text");
 	} else for(let i = 0; i < cows.length; i++){
 		if(arg[0].includes(cows[i])) {
