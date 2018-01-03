@@ -225,7 +225,10 @@ rl.on("line", (line) => {
 		});
 		break;
 	default:
-		tg.sendMessage(id, `${line.trim()}`);
+		tg.sendMessage(id, `${line.trim()}`)
+			.catch(function(e){
+				console.log(e);
+			});
 		break;
 	}
 	rl.prompt();
