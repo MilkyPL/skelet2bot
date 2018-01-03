@@ -246,6 +246,15 @@ rl.on("line", (line) => {
 			}
 		});
 		break;
+	case "/deadmin":
+		rl.question("deadmin who?", (deadid) => {
+			if(deadid == undefined) {
+				console.log("no user ID specified, aborting");
+			} else {
+				tg.promoteChatMember(id, deadid, { extra:false });
+			}
+		});
+		break;
 	default:
 		tg.sendMessage(id, `${line.trim()}`)
 			.catch(function(e){
