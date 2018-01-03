@@ -220,8 +220,30 @@ rl.on("line", (line) => {
 	switch (line.trim()) {
 	case "/setchat":
 		rl.question("set chat id: ", (setid) => {
-			id = setid;
-			rl.prompt();
+			if(setid == undefined) {
+				id = "-1001144567507";
+			} else {
+				id = setid;
+				rl.prompt();
+			}
+		});
+		break;
+	case "/ban":
+		rl.question("ban who? ", (banid) => {
+			if(banid == undefined) {
+				console.log("no user ID specified, aborting");
+			} else {
+				tg.restrictChatMember(id, banid);
+			}
+		});
+		break;
+	case "/unban":
+		rl.question("unban who? ", (unbanid) => {
+			if(unbanid == undefined) {
+				console.log("no user ID specified, aborting");
+			} else {
+				tg.restrictChatMember(id, unbanid, { "can_send_other_messages":"True", "can_add_web_page_previews":"True" });
+			}
 		});
 		break;
 	default:
