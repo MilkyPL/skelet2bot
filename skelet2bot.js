@@ -242,7 +242,7 @@ rl.on("line", (line) => {
 			if(unbanid == undefined) {
 				console.log("no user ID specified, aborting");
 			} else {
-				tg.restrictChatMember(id, unbanid, { "can_send_other_messages":"True", "can_add_web_page_previews":"True" });
+				tg.unbanChatMember(id, unbanid);
 			}
 		});
 		break;
