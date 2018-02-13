@@ -95,7 +95,7 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 		})
 		.catch(function(e) {
 			errors += e + "\n";
-			reply(errors + "You propably used nonexisting tags.");
+			reply(errors + "Try again later or use different tags.");
 		});
 });
 
