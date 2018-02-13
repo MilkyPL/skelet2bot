@@ -4,11 +4,9 @@ const Telegraf = require("telegraf");
 const { Telegram } = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-// const cron = require("node-cron");
 const key = process.argv[2];
 const readline = require("readline");
 const Danbooru = require("danbooru");
-// const fs = require("fs");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -40,7 +38,17 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
-const cows = ["beavis.zen", "bong", "bud-frogs", "bunny", "cheese", "cower", "daemon", "default", "doge", "dragon-and-cow", "dragon", "elephant-in-snake", "elephant", "eyes", "flaming-sheep", "ghostbusters", "goat", "head-in", "hedgehog", "hellokitty", "kiss", "kitty", "koala", "kosh", "luke-koala", "mech-and-cow", "meow", "milk", "moofasa", "moose", "mutilated", "ren", "satanic", "sheep", "skeleton", "small", "sodomized", "squirrel", "stegosaurus", "stimpy", "supermilker", "surgery", "telebears", "turkey", "turtle", "tux", "vader-koala", "vader", "whale", "www"];
+const cows = ["beavis.zen", "bong", "bud-frogs", "bunny",
+	"cheese", "cower", "daemon", "default", "doge",
+	"dragon-and-cow", "dragon", "elephant-in-snake",
+	"elephant", "eyes", "flaming-sheep", "ghostbusters",
+	"goat", "head-in", "hedgehog", "hellokitty", "kiss",
+	"kitty", "koala", "kosh", "luke-koala", "mech-and-cow",
+	"meow", "milk", "moofasa", "moose", "mutilated", "ren",
+	"satanic", "sheep", "skeleton", "small", "sodomized",
+	"squirrel", "stegosaurus", "stimpy", "supermilker",
+	"surgery", "telebears", "turkey", "turtle", "tux",
+	"vader-koala", "vader", "whale", "www"];
 
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
@@ -53,6 +61,8 @@ bot.command("test", feature);
 bot.command("rogue", feature);
 
 bot.command("info", feature);
+
+bot.command("bullshit", feature);
 
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
