@@ -4,11 +4,9 @@ const Telegraf = require("telegraf");
 const { Telegram } = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
-// const cron = require("node-cron");
 const key = process.argv[2];
 const readline = require("readline");
 const Danbooru = require("danbooru");
-// const fs = require("fs");
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -40,7 +38,17 @@ const cow = `<pre>
     ~~   ~~
 ...."Have you mooed today?"...</pre>`;
 
-const cows = ["beavis.zen", "bong", "bud-frogs", "bunny", "cheese", "cower", "daemon", "default", "doge", "dragon-and-cow", "dragon", "elephant-in-snake", "elephant", "eyes", "flaming-sheep", "ghostbusters", "goat", "head-in", "hedgehog", "hellokitty", "kiss", "kitty", "koala", "kosh", "luke-koala", "mech-and-cow", "meow", "milk", "moofasa", "moose", "mutilated", "ren", "satanic", "sheep", "skeleton", "small", "sodomized", "squirrel", "stegosaurus", "stimpy", "supermilker", "surgery", "telebears", "turkey", "turtle", "tux", "vader-koala", "vader", "whale", "www"];
+const cows = ["beavis.zen", "bong", "bud-frogs", "bunny",
+	"cheese", "cower", "daemon", "default", "doge",
+	"dragon-and-cow", "dragon", "elephant-in-snake",
+	"elephant", "eyes", "flaming-sheep", "ghostbusters",
+	"goat", "head-in", "hedgehog", "hellokitty", "kiss",
+	"kitty", "koala", "kosh", "luke-koala", "mech-and-cow",
+	"meow", "milk", "moofasa", "moose", "mutilated", "ren",
+	"satanic", "sheep", "skeleton", "small", "sodomized",
+	"squirrel", "stegosaurus", "stimpy", "supermilker",
+	"surgery", "telebears", "turkey", "turtle", "tux",
+	"vader-koala", "vader", "whale", "www"];
 
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
@@ -53,6 +61,8 @@ bot.command("test", feature);
 bot.command("rogue", feature);
 
 bot.command("info", feature);
+
+bot.command("bullshit", feature);
 
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
@@ -85,7 +95,7 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 		})
 		.catch(function(e) {
 			errors += e + "\n";
-			reply(errors + "You propably used nonexisting tags.");
+			reply(errors + "Try again later or use different tags.");
 		});
 });
 
@@ -95,12 +105,18 @@ bot.command("price", ({ message, reply }) => {
 	else json("https://api.coinmarketcap.com/v1/ticker/?limit=0")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
+		.catch(function(e) {
+			reply(e);
+		})
 		.then(balls => {
 			if(balls == undefined)
 				reply("input a valid ticker symbol retard");
 			else balls.percent_change_24h.includes("-")
 				? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + "% 📉")
 				: reply(balls.name + ": " + balls.price_usd + "$ +" + balls.percent_change_24h + "% 📈");
+		})
+		.catch(function(e) {
+			reply(e);
 		});
 });
 
@@ -145,23 +161,25 @@ bot.command("cowsay", ({ message, reply }) => {
 	let text = arg.slice();
 	let notCow = false;
 	text.splice(0,1);
-	if(arg == undefined || message.text == undefined || arg[0] == undefined) {
+	if(arg[0] == undefined) {
 		reply("specify animal and/or text");
-	} else for(let i = 0; i < cows.length; i++){
-		if(arg[0].includes(cows[i])) {
+	} else {
+		for(let i = 0; i < cows.length; i++){
+			if(arg[0].includes(cows[i])) {
+				reply("```" + cowsay.say({
+					text : text.join(" ") || "I'm too dumb to type some text",
+					f : arg[0]
+				}) + "```", { parse_mode: "Markdown" });
+				notCow = true;
+				break;
+			} else continue;
+		} if(arg[0].includes("list") && notCow === false) {
+			reply(cows);
+		} else if(notCow === false) {
 			reply("```" + cowsay.say({
-				text : text.join(" ") || "I'm too dumb to type some text",
-				f : arg[0]
+				text : arg.join(" ") || "Have you mooed today?",
 			}) + "```", { parse_mode: "Markdown" });
-			notCow = true;
-			break;
-		} else continue;
-	} if(arg[0].includes("list") && notCow === false) {
-		reply(cows);
-	} else if(notCow === false) {
-		reply("```" + cowsay.say({
-			text : arg.join(" ") || "Have you mooed today?",
-		}) + "```", { parse_mode: "Markdown" });
+		}
 	}
 });
 
@@ -218,12 +236,37 @@ rl.on("line", (line) => {
 	switch (line.trim()) {
 	case "/setchat":
 		rl.question("set chat id: ", (setid) => {
-			id = setid;
-			rl.prompt();
+			if(setid == undefined) {
+				id = "-1001144567507";
+			} else {
+				id = setid;
+				rl.prompt();
+			}
+		});
+		break;
+	case "/ban":
+		rl.question("ban who? ", (banid) => {
+			if(banid == undefined) {
+				console.log("no user ID specified, aborting");
+			} else {
+				tg.restrictChatMember(id, banid);
+			}
+		});
+		break;
+	case "/unban":
+		rl.question("unban who? ", (unbanid) => {
+			if(unbanid == undefined) {
+				console.log("no user ID specified, aborting");
+			} else {
+				tg.unbanChatMember(id, unbanid);
+			}
 		});
 		break;
 	default:
-		tg.sendMessage(id, `${line.trim()}`);
+		tg.sendMessage(id, `${line.trim()}`)
+			.catch(function(e){
+				console.log(e);
+			});
 		break;
 	}
 	rl.prompt();
