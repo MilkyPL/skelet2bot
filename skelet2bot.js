@@ -105,12 +105,18 @@ bot.command("price", ({ message, reply }) => {
 	else json("https://api.coinmarketcap.com/v1/ticker/?limit=0")
 		.then(crap => crap.find(obj =>
 			obj.symbol === args(message.text)[0].toUpperCase()))
+		.catch(function(e) {
+			reply(e);
+		})
 		.then(balls => {
 			if(balls == undefined)
 				reply("input a valid ticker symbol retard");
 			else balls.percent_change_24h.includes("-")
 				? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + "% 📉")
 				: reply(balls.name + ": " + balls.price_usd + "$ +" + balls.percent_change_24h + "% 📈");
+		})
+		.catch(function(e) {
+			reply(e);
 		});
 });
 
