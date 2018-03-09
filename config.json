@@ -1,1 +1,19 @@
-[]
+{
+    "general": {
+    "key":"BOT KEY"
+    },
+    "bridge": {
+        "desc":["bridge mode will forward between ch1 and ch2",
+            "logger mode will forward from all chats to ch1.",
+            "hybrid mode will forward from all chats to ch1, and between ch1 and ch2.",
+            "Default is hybrid."],
+        "mode":"hybrid",
+        "ch1":"CHAT ID",
+        "ch2":"OTHER CHAT ID"
+    },
+    "chatbot": {
+        "desc":["You can use chatbot to send messages from the command line.",
+        "You can set default chat here"],
+        "default_id":"CHAT ID"
+    }
+}
