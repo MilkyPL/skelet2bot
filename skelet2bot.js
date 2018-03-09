@@ -186,7 +186,7 @@ bot.command("cowsay", ({ message, reply }) => {
 
 const ch1 = config.bridge.ch1;
 const ch2 = config.bridge.ch2;
-
+let id = config.chatbot.default_id;
 
 bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 	let msg = message.chat.title + "\n" + message.from.username + ": " + message.text;
@@ -194,6 +194,8 @@ bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 		msg = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.text;
 	if(message.chat.id == ch1) {
 		tg.sendMessage(ch2, msg);
+	} else if(message.chat.id == id) {
+		console.log(msg + "\n");
 	} else tg.sendMessage(ch1, msg);
 	const text = message.text.toLowerCase();
 	if(message.from.id == 353196474 && text.includes("nice") || message.from.id == 128432371 && text.includes("nice"))
@@ -208,6 +210,8 @@ bot.on("photo", ({ message, tg }) => {
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
 	if(message.chat.id == ch1){
 		tg.sendPhoto(ch2, message.photo[0].file_id, { caption });
+	} else if(message.chat.id == id) {
+		console.log("(photo) " + caption + "\n");
 	} else {
 		tg.sendPhoto(ch1, message.photo[0].file_id, { caption });
 	}
@@ -219,6 +223,8 @@ bot.on("video", ({ message, tg }) => {
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
 	if(message.chat.id == ch1){
 		tg.sendVideo(ch2, message.video.file_id, { caption });
+	} else if(message.chat.id == id) {
+		console.log("(video) " + caption + "\n");
 	} else {
 		tg.sendVideo(ch1, message.video.file_id, { caption });
 	}
@@ -230,12 +236,13 @@ bot.on("document", ({ message, tg }) => {
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
 	if(message.chat.id == ch1){
 		tg.sendDocument(ch2, message.document.file_id, { caption });
+	} else if(message.chat.id == id) {
+		console.log("(document) " + caption + "\n");
 	} else {
 		tg.sendDocument(ch1, message.document.file_id, { caption });
 	}
 });
 
-let id = config.chatbot.default_id;
 rl.prompt();
 rl.on("line", (line) => {
 	switch (line.trim()) {
