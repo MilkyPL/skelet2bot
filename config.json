@@ -6,7 +6,7 @@
         "desc":["bridge mode will forward between ch1 and ch2",
             "logger mode will forward from all chats to ch1.",
             "hybrid mode will forward from all chats to ch1, and between ch1 and ch2.",
-            "Default is hybrid."],
+            "Default is hybrid. (it's the only working mode right now)"],
         "mode":"hybrid",
         "ch1":"CHAT ID",
         "ch2":"OTHER CHAT ID"
