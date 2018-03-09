@@ -13,7 +13,7 @@
     },
     "chatbot": {
         "desc":["You can use chatbot to send messages from the command line.",
-        "You can set default chat here"],
+            "You can set default chat here"],
         "default_id":"CHAT ID"
     }
 }
