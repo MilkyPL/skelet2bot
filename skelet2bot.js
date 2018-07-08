@@ -60,6 +60,8 @@ bot.command("test", feature);
 
 bot.command("rogue", feature);
 
+bot.command("delay", feature);
+
 bot.command("info", feature);
 
 bot.command("bullshit", feature);
