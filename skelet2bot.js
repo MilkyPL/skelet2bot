@@ -66,6 +66,8 @@ bot.command("info", feature);
 
 bot.command("bullshit", feature);
 
+bot.command("gelbooru", feature);
+
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
 	let errors = "Following errors occured:\n";
@@ -82,7 +84,8 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 			const caption = `Post ID: ${postInfo.id}\n` + 
 			`Artist: ${postInfo.tags.artist}\n` +
 			`Characters: ${postInfo.tags.character}\n` +
-			`Copyright info: ${postInfo.tags.copyright}`;
+			`Copyright info: ${postInfo.tags.copyright}\n` +
+			`https://danbooru.donmai.us/posts/${postInfo.id}\n`;
 			if(!("request" in file))
 				reply("image unavailable\n" + caption);
 			else replyWithPhoto(`https://danbooru.donmai.us/data/${file.name}`, { caption })
