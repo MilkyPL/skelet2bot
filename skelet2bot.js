@@ -192,9 +192,7 @@ bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
 	let msg = message.chat.title + "\n" + message.from.username + ": " + message.text;
 	if (message.from.username == undefined)
 		msg = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.text;
-	if(message.chat.id == "-1001144567507") {
-		tg.sendMessage("-1001064029829", msg);
-	} else tg.sendMessage("-1001144567507", msg);
+	tg.sendMessage("-1001144567507", msg);
 	const text = message.text.toLowerCase();
 	if(message.from.id == 353196474 && text.includes("nice"))
 		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
@@ -206,33 +204,21 @@ bot.on("photo", ({ message, tg }) => {
 	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id == "-1001144567507"){
-		tg.sendPhoto("-1001064029829", message.photo[0].file_id, { caption });
-	} else {
-		tg.sendPhoto("-1001144567507", message.photo[0].file_id, { caption });
-	}
+	tg.sendPhoto("-1001144567507", message.photo[0].file_id, { caption });
 });
 
 bot.on("video", ({ message, tg }) => {
 	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id == "-1001144567507"){
-		tg.sendVideo("-1001064029829", message.video.file_id, { caption });
-	} else {
-		tg.sendVideo("-1001144567507", message.video.file_id, { caption });
-	}
+	tg.sendVideo("-1001144567507", message.video.file_id, { caption });
 });
 
 bot.on("document", ({ message, tg }) => {
 	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
 	if (message.from.username == undefined)
 		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id == "-1001144567507"){
-		tg.sendDocument("-1001064029829", message.document.file_id, { caption });
-	} else {
-		tg.sendDocument("-1001144567507", message.document.file_id, { caption });
-	}
+	tg.sendDocument("-1001144567507", message.document.file_id, { caption });
 });
 
 let id = "-1001144567507";
