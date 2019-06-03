@@ -58,11 +58,7 @@ bot.command("moo", ({ reply }) =>
 
 bot.command("test", feature);
 
-bot.command("rogue", feature);
-
-bot.command("info", feature);
-
-bot.command("bullshit", feature);
+bot.command("gelbooru", feature);
 
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
@@ -80,7 +76,8 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 			const caption = `Post ID: ${postInfo.id}\n` + 
 			`Artist: ${postInfo.tags.artist}\n` +
 			`Characters: ${postInfo.tags.character}\n` +
-			`Copyright info: ${postInfo.tags.copyright}`;
+			`Copyright info: ${postInfo.tags.copyright}\n` +
+			`https://danbooru.donmai.us/posts/${postInfo.id}\n`;
 			if(!("request" in file))
 				reply("image unavailable\n" + caption);
 			else replyWithPhoto(`https://danbooru.donmai.us/data/${file.name}`, { caption })
@@ -183,93 +180,11 @@ bot.command("cowsay", ({ message, reply }) => {
 	}
 });
 
-bot.on("text", ({ message, replyWithSticker, reply, tg }) => {
-	let msg = message.chat.title + "\n" + message.from.username + ": " + message.text;
-	if (message.from.username == undefined)
-		msg = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.text;
-	if(message.chat.id == "-1001144567507") {
-		tg.sendMessage("-1001064029829", msg);
-	} else tg.sendMessage("-1001144567507", msg);
-	const text = message.text.toLowerCase();
-	if(message.from.id == 353196474 && text.includes("nice") || message.from.id == 128432371 && text.includes("nice"))
-		replyWithSticker("CAADBAADPwADulkNFYeAzy5ClSxjAg");
-	else if(text == undefined)
-		reply("unknown error");
-});
-
-bot.on("photo", ({ message, tg }) => {
-	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
-	if (message.from.username == undefined)
-		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id == "-1001144567507"){
-		tg.sendPhoto("-1001064029829", message.photo[0].file_id, { caption });
-	} else {
-		tg.sendPhoto("-1001144567507", message.photo[0].file_id, { caption });
-	}
-});
-
-bot.on("video", ({ message, tg }) => {
-	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
-	if (message.from.username == undefined)
-		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id == "-1001144567507"){
-		tg.sendVideo("-1001064029829", message.video.file_id, { caption });
-	} else {
-		tg.sendVideo("-1001144567507", message.video.file_id, { caption });
-	}
-});
-
-bot.on("document", ({ message, tg }) => {
-	let caption = message.chat.title + "\n" + message.from.username + ": " + message.caption;
-	if (message.from.username == undefined)
-		caption = message.chat.title + "\n" + message.from.first_name + " " + message.from.last_name + ": " + message.caption;
-	if(message.chat.id == "-1001144567507"){
-		tg.sendDocument("-1001064029829", message.document.file_id, { caption });
-	} else {
-		tg.sendDocument("-1001144567507", message.document.file_id, { caption });
-	}
-});
-
-let id = "-1001144567507";
-rl.prompt();
-rl.on("line", (line) => {
-	switch (line.trim()) {
-	case "/setchat":
-		rl.question("set chat id: ", (setid) => {
-			if(setid == undefined) {
-				id = "-1001144567507";
-			} else {
-				id = setid;
-				rl.prompt();
-			}
-		});
-		break;
-	case "/ban":
-		rl.question("ban who? ", (banid) => {
-			if(banid == undefined) {
-				console.log("no user ID specified, aborting");
-			} else {
-				tg.restrictChatMember(id, banid);
-			}
-		});
-		break;
-	case "/unban":
-		rl.question("unban who? ", (unbanid) => {
-			if(unbanid == undefined) {
-				console.log("no user ID specified, aborting");
-			} else {
-				tg.unbanChatMember(id, unbanid);
-			}
-		});
-		break;
-	default:
-		tg.sendMessage(id, `${line.trim()}`)
-			.catch(function(e){
-				console.log(e);
-			});
-		break;
-	}
-	rl.prompt();
+bot.on("message", ({ message, reply, replyWithSticker }) => {
+	if(message.new_chat_members !== undefined) {
+		reply(message.new_chat_members);
+		replyWithSticker("CAADBAADAQADSb69LZb11aFomO9mAg");
+	};
 });
 
 bot.startPolling();
