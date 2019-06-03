@@ -180,4 +180,10 @@ bot.command("cowsay", ({ message, reply }) => {
 	}
 });
 
+bot.on("message", ({ message, reply, replyWithSticker }) => {
+	if(message.new_chat_members !== undefined) {
+		reply(message.new_chat_members);
+		replyWithSticker("CAADBAADAQADSb69LZb11aFomO9mAg");
+	};
+});
 bot.startPolling();
