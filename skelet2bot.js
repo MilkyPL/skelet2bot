@@ -58,14 +58,6 @@ bot.command("moo", ({ reply }) =>
 
 bot.command("test", feature);
 
-bot.command("rogue", feature);
-
-bot.command("delay", feature);
-
-bot.command("info", feature);
-
-bot.command("bullshit", feature);
-
 bot.command("gelbooru", feature);
 
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
