@@ -186,4 +186,5 @@ bot.on("message", ({ message, reply, replyWithSticker }) => {
 		replyWithSticker("CAADBAADAQADSb69LZb11aFomO9mAg");
 	};
 });
+
 bot.startPolling();
