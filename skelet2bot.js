@@ -64,7 +64,8 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
 	let errors = "Following errors occured:\n";
 	if(tags == "")
-		reply("you forgot to specify tags retard");
+		reply("you forgot to specify tags retard\nCommand help: Search Danbooru for specified tags. Use " +
+		"up to 2 tags:\n<pre>/danbooru tag1 tag2</pre>", { parse_mode: "HTML"});
 	else booru.posts(tags)
 		.then(posts => posts[Math.floor(Math.random()*posts.length)])
 		.then(post => booru.posts.get(post))
