@@ -160,7 +160,8 @@ bot.command("cowsay", ({ message, reply }) => {
 	let notCow = false;
 	text.splice(0,1);
 	if(arg[0] == undefined) {
-		reply("specify animal and/or text");
+		reply("specify animal and/or text\nuse <pre>/cowsay list</pre> to see supported cows", 
+		{ parse_mode: "HTML" });
 	} else {
 		for(let i = 0; i < cows.length; i++){
 			if(arg[0].includes(cows[i])) {
