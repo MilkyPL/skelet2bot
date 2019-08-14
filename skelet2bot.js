@@ -5,7 +5,6 @@ const { Telegram } = require("telegraf");
 const { json } = require("req");
 const cowsay = require("cowsay");
 const key = process.argv[2];
-const readline = require("readline");
 const Danbooru = require("danbooru");
 
 const args = text => text.split(" ").slice(1);
@@ -14,12 +13,6 @@ const argstring = text => args(text).join(" ").trim();
 const bot = new Telegraf(key);
 bot.telegram.getMe().then(data =>
 	bot.options.username = data.username);
-
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-	prompt: "chat: "
-});
 
 const tg = new Telegram(key);
 
