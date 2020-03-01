@@ -6,6 +6,8 @@ const { json } = require("req");
 const cowsay = require("cowsay");
 const key = process.argv[2];
 const Danbooru = require("danbooru");
+const Gelbooru = require('booru')
+const { BooruError } = require('booru')
 
 const args = text => text.split(" ").slice(1);
 const argstring = text => args(text).join(" ").trim();
@@ -53,9 +55,22 @@ bot.command("moo", ({ reply }) =>
 
 bot.command("test", feature);
 
-bot.command("gelbooru", feature);
-
 bot.command("sankaku", feature);
+
+bot.command("gelbooru", ({ message, reply, replyWithPhoto }) => {
+	reply("nigger");
+	const tags = args(message.text);
+	if(tags == "")
+		reply("you forgot to specify tags retard");
+	else Gelbooru.search("gelbooru", tags, { random: true })
+		.then(posts => {
+			const caption = `Source: ${posts[0].source}`
+			replyWithPhoto(posts[0].file_url, { caption });
+		})
+		.catch(err => {
+			reply(err);
+		});
+});
 
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
