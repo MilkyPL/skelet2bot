@@ -55,6 +55,8 @@ bot.command("test", feature);
 
 bot.command("gelbooru", feature);
 
+bot.command("sankaku", feature);
+
 bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
 	let errors = "Following errors occured:\n";
