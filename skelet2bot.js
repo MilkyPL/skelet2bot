@@ -43,6 +43,8 @@ const cows = ["beavis.zen", "bong", "bud-frogs", "bunny",
 	"surgery", "telebears", "turkey", "turtle", "tux",
 	"vader-koala", "vader", "whale", "www"];
 
+console.log("Bot started!");
+
 bot.command("start", ({ reply }) =>
 	reply("fuck off"));
 
