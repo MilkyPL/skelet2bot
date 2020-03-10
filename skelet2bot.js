@@ -57,6 +57,8 @@ bot.command("test", feature);
 
 bot.command("sankaku", feature);
 
+bot.command("sauce", feature);
+
 bot.command("gelbooru", ({ message, reply, replyWithPhoto }) => {
 	const tags = args(message.text);
 	if(tags == "")
