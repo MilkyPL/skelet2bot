@@ -113,18 +113,20 @@ bot.command("danbooru", ({ message, reply, replyWithPhoto }) => {
 bot.command("price", ({ message, reply }) => {
 	if(args(message.text)[0] == undefined)
 		reply("input a valid ticker symbol retard");
-	else json("https://api.coinmarketcap.com/v1/ticker/?limit=0")
-		.then(crap => crap.find(obj =>
+	else json("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=b0483c5b-efa7-4888-8d09-bd7c96c5175d")
+		.then(crap => crap.data.find(obj =>
+			//reply(obj)))
 			obj.symbol === args(message.text)[0].toUpperCase()))
 		.catch(function(e) {
 			reply(e);
 		})
 		.then(balls => {
+			reply(balls.name + balls.quote.USD.price);
 			if(balls == undefined)
 				reply("input a valid ticker symbol retard");
-			else balls.percent_change_24h.includes("-")
-				? reply(balls.name + ": " + balls.price_usd + "$ " + balls.percent_change_24h + "% 📉")
-				: reply(balls.name + ": " + balls.price_usd + "$ +" + balls.percent_change_24h + "% 📈");
+			else balls.quote.USD.percent_change_24h.includes("-")
+				? reply(balls.name + ": " + balls.quote.USD.price + "$ " + balls.quote.USD.percent_change_24h + "% 📉")
+				: reply(balls.name + ": " + balls.quote.USD.price + "$ +" + balls.quote.USD.percent_change_24h + "% 📈");
 		})
 		.catch(function(e) {
 			reply(e);
