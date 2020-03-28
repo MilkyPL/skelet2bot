@@ -121,12 +121,15 @@ bot.command("price", ({ message, reply }) => {
 			reply(e);
 		})
 		.then(balls => {
-			reply(balls.name + balls.quote.USD.price);
 			if(balls == undefined)
 				reply("input a valid ticker symbol retard");
-			else balls.quote.USD.percent_change_24h.includes("-")
+			else {			
+				reply(balls.name + " " + balls.quote.USD.price + "$");
+				reply(balls);
+			}
+/*			else balls.quote.USD.percent_change_24h.includes("-")
 				? reply(balls.name + ": " + balls.quote.USD.price + "$ " + balls.quote.USD.percent_change_24h + "% 📉")
-				: reply(balls.name + ": " + balls.quote.USD.price + "$ +" + balls.quote.USD.percent_change_24h + "% 📈");
+				: reply(balls.name + ": " + balls.quote.USD.price + "$ +" + balls.quote.USD.percent_change_24h + "% 📈");*/
 		})
 		.catch(function(e) {
 			reply(e);
